@@ -1,4 +1,4 @@
-# Install script for directory: E:/Projects/BasicOfProjectActivity/lab2_sfml
+# Install script for directory: E:/Projects/BasicOfProjectActivity/lab2_sfml/01
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -27,20 +27,3 @@ if(NOT CMAKE_INSTALL_COMPONENT)
   endif()
 endif()
 
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for each subdirectory.
-  include("E:/Projects/BasicOfProjectActivity/lab2_sfml/00/cmake_install.cmake")
-  include("E:/Projects/BasicOfProjectActivity/lab2_sfml/01/cmake_install.cmake")
-
-endif()
-
-if(CMAKE_INSTALL_COMPONENT)
-  set(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
-else()
-  set(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
-endif()
-
-string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
-       "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "E:/Projects/BasicOfProjectActivity/lab2_sfml/${CMAKE_INSTALL_MANIFEST}"
-     "${CMAKE_INSTALL_MANIFEST_CONTENT}")

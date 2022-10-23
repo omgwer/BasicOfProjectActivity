@@ -79,14 +79,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start E:\Projects\BasicOfProjectActivity\lab2_sfml\CMakeFiles E:\Projects\BasicOfProjectActivity\lab2_sfml\CMakeFiles\progress.marks
-	$(MAKE) -f CMakeFiles\Makefile2 all
+	cd /d E:\Projects\BasicOfProjectActivity\lab2_sfml && $(CMAKE_COMMAND) -E cmake_progress_start E:\Projects\BasicOfProjectActivity\lab2_sfml\CMakeFiles E:\Projects\BasicOfProjectActivity\lab2_sfml\01\CMakeFiles\progress.marks
+	cd /d E:\Projects\BasicOfProjectActivity\lab2_sfml && $(MAKE) -f CMakeFiles\Makefile2 01/all
 	$(CMAKE_COMMAND) -E cmake_progress_start E:\Projects\BasicOfProjectActivity\lab2_sfml\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) -f CMakeFiles\Makefile2 clean
+	cd /d E:\Projects\BasicOfProjectActivity\lab2_sfml && $(MAKE) -f CMakeFiles\Makefile2 01/clean
 .PHONY : clean
 
 # The main clean target
@@ -96,44 +96,60 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) -f CMakeFiles\Makefile2 preinstall
+	cd /d E:\Projects\BasicOfProjectActivity\lab2_sfml && $(MAKE) -f CMakeFiles\Makefile2 01/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) -f CMakeFiles\Makefile2 preinstall
+	cd /d E:\Projects\BasicOfProjectActivity\lab2_sfml && $(MAKE) -f CMakeFiles\Makefile2 01/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
+	cd /d E:\Projects\BasicOfProjectActivity\lab2_sfml && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named 00
+# Convenience name for target.
+01/CMakeFiles/01.dir/rule:
+	cd /d E:\Projects\BasicOfProjectActivity\lab2_sfml && $(MAKE) -f CMakeFiles\Makefile2 01/CMakeFiles/01.dir/rule
+.PHONY : 01/CMakeFiles/01.dir/rule
 
-# Build rule for target.
-00: cmake_check_build_system
-	$(MAKE) -f CMakeFiles\Makefile2 00
-.PHONY : 00
+# Convenience name for target.
+01: 01/CMakeFiles/01.dir/rule
 
-# fast build rule for target.
-00/fast:
-	$(MAKE) -f 00\CMakeFiles\00.dir\build.make 00/CMakeFiles/00.dir/build
-.PHONY : 00/fast
-
-#=============================================================================
-# Target rules for targets named 01
-
-# Build rule for target.
-01: cmake_check_build_system
-	$(MAKE) -f CMakeFiles\Makefile2 01
 .PHONY : 01
 
 # fast build rule for target.
 01/fast:
-	$(MAKE) -f 01\CMakeFiles\01.dir\build.make 01/CMakeFiles/01.dir/build
+	cd /d E:\Projects\BasicOfProjectActivity\lab2_sfml && $(MAKE) -f 01\CMakeFiles\01.dir\build.make 01/CMakeFiles/01.dir/build
 .PHONY : 01/fast
+
+main.obj: main.cpp.obj
+
+.PHONY : main.obj
+
+# target to build an object file
+main.cpp.obj:
+	cd /d E:\Projects\BasicOfProjectActivity\lab2_sfml && $(MAKE) -f 01\CMakeFiles\01.dir\build.make 01/CMakeFiles/01.dir/main.cpp.obj
+.PHONY : main.cpp.obj
+
+main.i: main.cpp.i
+
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	cd /d E:\Projects\BasicOfProjectActivity\lab2_sfml && $(MAKE) -f 01\CMakeFiles\01.dir\build.make 01/CMakeFiles/01.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	cd /d E:\Projects\BasicOfProjectActivity\lab2_sfml && $(MAKE) -f 01\CMakeFiles\01.dir\build.make 01/CMakeFiles/01.dir/main.cpp.s
+.PHONY : main.cpp.s
 
 # Help Target
 help:
@@ -141,10 +157,12 @@ help:
 	@echo ... all (the default if no target is provided)
 	@echo ... clean
 	@echo ... depend
+	@echo ... 01
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... 00
-	@echo ... 01
+	@echo ... main.obj
+	@echo ... main.i
+	@echo ... main.s
 .PHONY : help
 
 
@@ -156,6 +174,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
+	cd /d E:\Projects\BasicOfProjectActivity\lab2_sfml && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
