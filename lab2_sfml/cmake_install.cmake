@@ -32,6 +32,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("E:/Projects/BasicOfProjectActivity/lab2_sfml/00/cmake_install.cmake")
   include("E:/Projects/BasicOfProjectActivity/lab2_sfml/01/cmake_install.cmake")
   include("E:/Projects/BasicOfProjectActivity/lab2_sfml/02/cmake_install.cmake")
+  include("E:/Projects/BasicOfProjectActivity/lab2_sfml/03_sfml1_1/cmake_install.cmake")
 
 endif()
 
