@@ -31,6 +31,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("E:/Projects/BasicOfProjectActivity/lab2_sfml/00/cmake_install.cmake")
   include("E:/Projects/BasicOfProjectActivity/lab2_sfml/01/cmake_install.cmake")
+  include("E:/Projects/BasicOfProjectActivity/lab2_sfml/02/cmake_install.cmake")
 
 endif()
 
