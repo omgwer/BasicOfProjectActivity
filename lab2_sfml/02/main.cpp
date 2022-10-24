@@ -19,7 +19,12 @@ int main()
     shape2.setFillColor(sf::Color(0x0, 0xFF, 0x0));
     window.draw(shape2);
 
-    //sf::RectangleShape shape3;
+    sf::RectangleShape shape3;
+    shape3.setSize({120, 15});
+    shape3.setRotation(-30);
+    shape3.setPosition({200, 120});
+    shape3.setFillColor(sf::Color(0xFF, 0x0, 0xFF));
+    window.draw(shape3);
 
     window.display();
 
