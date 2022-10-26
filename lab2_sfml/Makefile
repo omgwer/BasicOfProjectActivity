@@ -187,6 +187,19 @@ depend:
 	$(MAKE) -f 04_sfml1_2\CMakeFiles\04_sfml1_2.dir\build.make 04_sfml1_2/CMakeFiles/04_sfml1_2.dir/build
 .PHONY : 04_sfml1_2/fast
 
+#=============================================================================
+# Target rules for targets named 05_sfml1_3
+
+# Build rule for target.
+05_sfml1_3: cmake_check_build_system
+	$(MAKE) -f CMakeFiles\Makefile2 05_sfml1_3
+.PHONY : 05_sfml1_3
+
+# fast build rule for target.
+05_sfml1_3/fast:
+	$(MAKE) -f 05_sfml1_3\CMakeFiles\05_sfml1_3.dir\build.make 05_sfml1_3/CMakeFiles/05_sfml1_3.dir/build
+.PHONY : 05_sfml1_3/fast
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -201,6 +214,7 @@ help:
 	@echo ... 03
 	@echo ... 03_sfml1_1
 	@echo ... 04_sfml1_2
+	@echo ... 05_sfml1_3
 .PHONY : help
 
 
