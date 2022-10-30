@@ -3,12 +3,17 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode({800, 600}), "Simple Event Loop");
+    constexpr float BALL_SIZE = 40;    
+    sf::Vector2f speed = {50.f, 15.f};
+    constexpr unsigned WINDOW_WIDTH = 800;
+    constexpr unsigned WINDOW_HEIGHT = 600;
+        
+    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Moving ball");
     sf::Clock clock;
-
-    sf::CircleShape shape(40);
+    sf::CircleShape shape(BALL_SIZE);
     shape.setPosition({200, 120});
     shape.setFillColor(sf::Color(254, 254, 254));
+
 
     while (window.isOpen())
     {
@@ -21,10 +26,25 @@ int main()
             }
         }
 
-        constexpr float speed = 1.f;
-        const float deltaTime = clock.restart().asSecond();
+        const float deltaTime = clock.restart().asSeconds();
         sf::Vector2f position = shape.getPosition();
-        position.x += 0.5;
+        position += speed * deltaTime;
+        
+        if ((position.x + 2 * BALL_SIZE >= WINDOW_WIDTH) && (speed.x > 0)) {
+            speed.x = -speed.x;
+        }
+        if ((position.x < 0 ) && (speed.x < 0)) {
+            speed.x = -speed.x;
+        }
+        if ((position.y + 2 * BALL_SIZE >= WINDOW_HEIGHT) && (speed.y > 0)) {
+            speed.y = -speed.y;
+        }
+        if ((position.y < 0) && (speed.y <0)) {
+            speed.y = -speed.y;
+        }
+        
+        
+
         shape.setPosition(position);
 
         window.clear();
