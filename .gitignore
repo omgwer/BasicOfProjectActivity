@@ -364,5 +364,4 @@ FodyWeavers.xsd
 
 **.exe
 
-**/CMakeFiles/*
-**.cmake
+
