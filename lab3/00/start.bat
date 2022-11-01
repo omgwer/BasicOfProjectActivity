@@ -1,4 +1,4 @@
-if exist 00.exe.exe (
+if exist 00.exe (
     del 00.exe
 )
 

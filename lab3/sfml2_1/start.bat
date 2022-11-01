@@ -1,4 +1,4 @@
-if exist sfml2_1.exe.exe (
+if exist sfml2_1.exe (
     del sfml2_1.exe
 )
 

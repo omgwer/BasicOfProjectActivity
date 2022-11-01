@@ -1,4 +1,4 @@
-if exist 05_sfml1_3.exe.exe (
+if exist 05_sfml1_3.exe (
     del 05_sfml1_3.exe
 )
 
