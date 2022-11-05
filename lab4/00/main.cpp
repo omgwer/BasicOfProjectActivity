@@ -8,7 +8,7 @@ int main()
         if (num % 15)
         {
             std::cout << "FizzBuzz" << std::endl;
-        }
+         }
         else if (num % 3)
         {
             std::cout << "Fizz" << std::endl;
