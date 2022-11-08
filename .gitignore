@@ -368,5 +368,5 @@ FodyWeavers.xsd
 .cmake
 
 **/Makefile
-**/CmakeCache.txt
+**/CMakeCache.txt
 **/cmake_install.cmake
