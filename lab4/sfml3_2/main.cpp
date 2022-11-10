@@ -60,11 +60,12 @@ void redrawFrame(sf::RenderWindow &window, Eves &eves)
     window.display();
 }
 
+// Возращает объект глаз
 Eve addEve(sf::Vector2f evePosition)
 {
     Eve newEve;
     constexpr int pointCount = 200;
-    const sf::Vector2f ellipseRadius = {200.f, 80.f};
+    const sf::Vector2f ellipseRadius = {80.f, 200.f};
 
     sf::ConvexShape shape;
     shape.setPosition({evePosition.x, evePosition.y});
