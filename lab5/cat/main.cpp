@@ -10,10 +10,9 @@ struct Eve
     sf::Vector2f pupilDefaultPosition;
 };
 
-struct Eves
+struct Cat
 {
     Eve leftEve;
-    Eve rightEve;
 };
 
 sf::Vector2f toEuclidean(float radiusX, float radiusY, float angle)
@@ -30,7 +29,7 @@ float toDegrees(float radians)
 
 void onMouseMove(const sf::Event::MouseMoveEvent &event, sf::Vector2f &mousePosition)
 {
-    //std::cout << "mouse x=" << event.x << " , y= " << event.y << std::endl;
+    std::cout << "mouse x=" << event.x << " , y= " << event.y << std::endl;
     mousePosition = {float(event.x), float(event.y)};
 }
 
@@ -45,7 +44,7 @@ void pollEvents(sf::RenderWindow &window, sf::Vector2f &mousePosition)
         case ::sf::Event::Closed:
             window.close();
             break;
-        case sf::Event::MouseMoved:
+        case sf::Event::MouseButtonPressed:
             onMouseMove(event.mouseMove, mousePosition);
             break;
         default:
@@ -74,23 +73,18 @@ void updateEve(Eve &eve, float angle, const sf::Vector2f &mousePosition)
     }
 }
 
-void update(const sf::Vector2f &mousePosition, Eves &eves, const float dt)
+void update(const sf::Vector2f &mousePosition, Cat &cat, const float dt)
 {
-    const sf::Vector2f deltaLeft = mousePosition - eves.leftEve.pupilOfTheEve.getPosition();
-    const sf::Vector2f deltaRight = mousePosition - eves.rightEve.pupilOfTheEve.getPosition();
+    const sf::Vector2f deltaLeft = mousePosition - cat.leftEve.pupilOfTheEve.getPosition();
     const float angleLeft = atan2(deltaLeft.y, deltaLeft.x);
-    const float angleRight = atan2(deltaRight.y, deltaRight.x);
-    updateEve(eves.leftEve, angleLeft, mousePosition);
-    updateEve(eves.rightEve, angleRight, mousePosition);
+    updateEve(cat.leftEve, angleLeft, mousePosition);
 }
 
-void redrawFrame(sf::RenderWindow &window, Eves &eves)
+void redrawFrame(sf::RenderWindow &window, Cat &cat)
 {
     window.clear();
-    window.draw(eves.leftEve.whiteOfTheEve);
-    window.draw(eves.leftEve.pupilOfTheEve);
-    window.draw(eves.rightEve.whiteOfTheEve);
-    window.draw(eves.rightEve.pupilOfTheEve);
+    window.draw(cat.leftEve.whiteOfTheEve);
+    window.draw(cat.leftEve.pupilOfTheEve);
     window.display();
 }
 
@@ -137,12 +131,11 @@ Eve addEve(sf::Vector2f evePosition)
     return newEve;
 }
 
-void init(Eves &eves)
+void init(Cat &Cat)
 {
     const sf::Vector2f leftEvePosition = {250, 290};
     const sf::Vector2f rightEvePosition = {450, 290};
-    eves.leftEve = addEve(leftEvePosition);
-    eves.rightEve = addEve(rightEvePosition);
+    Cat.leftEve = addEve(leftEvePosition);
 }
 
 int main()
@@ -152,19 +145,19 @@ int main()
 
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "eves", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Cat", sf::Style::Default, settings);
     sf::Clock clock;
     sf::Vector2f mousePosition;
 
-    Eves eves;
+    Cat Cat;
 
-    init(eves);
+    init(Cat);
 
     while (window.isOpen())
     {
         const float dt = clock.restart().asSeconds();
         pollEvents(window, mousePosition);
-        update(mousePosition, eves, dt);
-        redrawFrame(window, eves);
+        update(mousePosition, Cat, dt);
+        redrawFrame(window, Cat);
     }
 }
