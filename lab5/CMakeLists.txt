@@ -10,3 +10,4 @@ find_package(SFML 2 COMPONENTS window graphics system REQUIRED)
 
 add_subdirectory(cat)
 add_subdirectory(cat_v2)
+add_subdirectory(cat_v3)
