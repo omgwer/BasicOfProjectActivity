@@ -2,17 +2,12 @@
 #include <cmath>
 #include <iostream>
 
-struct Eve
-{
-    sf::ConvexShape whiteOfTheEve;
-    sf::ConvexShape pupilOfTheEve;
-    sf::Vector2f pupilLimiter;
-    sf::Vector2f pupilDefaultPosition;
-};
-
 struct Cat
 {
-    Eve leftEve;
+    sf::ConvexShape head;
+    sf::RectangleShape stem;
+    sf::Vector2f position;
+    float rotation = 0;
 };
 
 sf::Vector2f toEuclidean(float radiusX, float radiusY, float angle)
@@ -53,89 +48,56 @@ void pollEvents(sf::RenderWindow &window, sf::Vector2f &mousePosition)
     }
 }
 
-void updateEve(Eve &eve, float angle, const sf::Vector2f &mousePosition)
+void updateCat(Cat &cat, float angle, const sf::Vector2f &mousePosition)
 {
-    const int limit = 40;
-    if ((eve.pupilDefaultPosition.x + limit >= mousePosition.x) && (eve.pupilDefaultPosition.x - limit <= mousePosition.x))
-    {
-        std::cout << "default x = " << eve.pupilDefaultPosition.x << "default y = " << eve.pupilDefaultPosition.y << std::endl
-                  << std::endl;
-        if ((eve.pupilDefaultPosition.y + limit >= mousePosition.y) && (eve.pupilDefaultPosition.y - limit <= mousePosition.y))
-        {
-            eve.pupilOfTheEve.setPosition(mousePosition);
-            return;
-        }
-    }
-    else
-    {
-        const sf::Vector2f headOffset = toEuclidean(25, 40, angle);
-        eve.pupilOfTheEve.setPosition(eve.pupilDefaultPosition + headOffset);
-    }
 }
 
 void update(const sf::Vector2f &mousePosition, Cat &cat, const float dt)
 {
-    const sf::Vector2f deltaLeft = mousePosition - cat.leftEve.pupilOfTheEve.getPosition();
+    const sf::Vector2f deltaLeft = mousePosition - cat.head.getPosition();
     const float angleLeft = atan2(deltaLeft.y, deltaLeft.x);
-    updateEve(cat.leftEve, angleLeft, mousePosition);
+    updateCat(cat, angleLeft, mousePosition);
 }
 
 void redrawFrame(sf::RenderWindow &window, Cat &cat)
 {
-    window.clear();
-    window.draw(cat.leftEve.whiteOfTheEve);
-    window.draw(cat.leftEve.pupilOfTheEve);
+    window.clear(sf::Color(244, 244, 244));
+    window.draw(cat.head);
+    window.draw(cat.stem);
     window.display();
 }
 
-// Возращает объект глаз
-Eve addEve(sf::Vector2f evePosition)
+Cat addCat()
 {
-    Eve newEve;
-    constexpr int pointCount = 200;
-    const sf::Vector2f ellipseRadius = {80.f, 160.f};
+    const float outlineWidth = 3.f;
+    const sf::Color outlineColor = sf::Color(1, 1, 1);
+    const sf::Color fillColor = sf::Color(227, 206, 18);
+    const sf::Vector2f startPosition = sf::Vector2f({250, 250});
 
-    sf::ConvexShape whiteOfTheEve;
-    whiteOfTheEve.setPosition({evePosition.x, evePosition.y});
-    whiteOfTheEve.setFillColor(sf::Color(254, 254, 254));
-    whiteOfTheEve.setPointCount(pointCount);
-    for (int pointNo = 0; pointNo < pointCount; ++pointNo)
-    {
-        float angle = float(2 * M_PI * pointNo) / float(pointCount);
-        sf::Vector2f point = sf::Vector2f{
-            ellipseRadius.x * std::sin(angle),
-            ellipseRadius.y * std::cos(angle)};
-        whiteOfTheEve.setPoint(pointNo, point);
-    }
-    newEve.whiteOfTheEve = whiteOfTheEve;
+    Cat newCat;
+    newCat.head.setPointCount(3);
+    newCat.head.setPoint(0, {30, 0});
+    newCat.head.setPoint(1, {0, -20});
+    newCat.head.setPoint(2, {0, 20});
+    newCat.head.setFillColor(fillColor);
+    newCat.head.setOutlineThickness(outlineWidth);
+    newCat.head.setOutlineColor(outlineColor);
 
-    const sf::Vector2f ellipseRadiusMin = ellipseRadius * 0.2f;
-    sf::ConvexShape pupilOfTheEve;
-    pupilOfTheEve.setPosition({evePosition.x, evePosition.y});
-    pupilOfTheEve.setFillColor(sf::Color(254, 0, 0));
-    pupilOfTheEve.setPointCount(pointCount);
-    for (int pointNo = 0; pointNo < pointCount; ++pointNo)
-    {
-        float angle = float(2 * M_PI * pointNo) / float(pointCount);
-        sf::Vector2f point = sf::Vector2f{
-            ellipseRadiusMin.x * std::sin(angle),
-            ellipseRadiusMin.y * std::cos(angle)};
-        pupilOfTheEve.setPoint(pointNo, point);
-    }
-    newEve.pupilOfTheEve = pupilOfTheEve;
+    newCat.stem.setSize({80, 20});
+    newCat.stem.setOrigin({40, 10});
+    newCat.stem.setFillColor(fillColor);
+    newCat.stem.setOutlineThickness(outlineWidth);
+    newCat.stem.setOutlineColor(outlineColor);
 
-    newEve.pupilLimiter = ellipseRadius * 0.5f;
+    newCat.head.setPosition(startPosition);
+    newCat.stem.setPosition(startPosition);
 
-    newEve.pupilDefaultPosition = pupilOfTheEve.getPosition();
-
-    return newEve;
+    return newCat;
 }
 
-void init(Cat &Cat)
+void init(Cat &cat)
 {
-    const sf::Vector2f leftEvePosition = {250, 290};
-    const sf::Vector2f rightEvePosition = {450, 290};
-    Cat.leftEve = addEve(leftEvePosition);
+    cat = addCat();
 }
 
 int main()
@@ -146,18 +108,19 @@ int main()
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
     sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Cat", sf::Style::Default, settings);
+
     sf::Clock clock;
     sf::Vector2f mousePosition;
 
-    Cat Cat;
+    Cat cat;
 
-    init(Cat);
+    init(cat);
 
     while (window.isOpen())
     {
         const float dt = clock.restart().asSeconds();
         pollEvents(window, mousePosition);
-        update(mousePosition, Cat, dt);
-        redrawFrame(window, Cat);
+        update(mousePosition, cat, dt);
+        redrawFrame(window, cat);
     }
 }
