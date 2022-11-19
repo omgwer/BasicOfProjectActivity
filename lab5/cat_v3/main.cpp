@@ -93,27 +93,13 @@ void update(const sf::Vector2f &mousePosition, Cat &cat, const float dt)
     //update angle
     if (angle != oldRotation)
     {
-        if (angle > oldRotation)
+        if (mousePosition.x > oldPosition.x)
         {
-            if ((angle - 180) > oldRotation)
-            {
-                cat.head.setRotation(oldRotation - std::min(angleMaxSpeed, rotation));
-            }
-            else
-            {
-                cat.head.setRotation(oldRotation + std::min(angleMaxSpeed, rotation));
-            }
+            cat.head.setScale(1, 1);
         }
         else
         {
-            if ((angle + 180) < oldRotation)
-            {
-                cat.head.setRotation(oldRotation + std::min(angleMaxSpeed, rotation));
-            }
-            else
-            {
-                cat.head.setRotation(oldRotation - std::min(angleMaxSpeed, rotation));
-            }
+            cat.head.setScale(-1, 1);
         }
     }
 
