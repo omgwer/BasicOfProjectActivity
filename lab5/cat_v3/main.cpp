@@ -4,7 +4,7 @@
 
 struct Cat
 {
-    sf::ConvexShape head;
+    sf::Sprite head;
     sf::Vector2f position;
     float rotation = 0;
 };
@@ -23,13 +23,13 @@ float toDegrees(float radians)
 
 void onMouseMove(const sf::Event::MouseButtonEvent &event, sf::Vector2f &mousePosition)
 {
-    // std::cout << "mouse x=" << event.x << " , y= " << event.y << std::endl;
+    std::cout << "mouse x=" << event.x << " , y= " << event.y << std::endl;
     mousePosition = {float(event.x), float(event.y)};
 }
 
 void onCursorMove(const sf::Event::MouseMoveEvent &event, sf::Vector2f &mousePosition)
 {
-    std::cout << "mouse x=" << event.x << " , y= " << event.y << std::endl;
+    //std::cout << "mouse x=" << event.x << " , y= " << event.y << std::endl;
     mousePosition = {float(event.x), float(event.y)};
 }
 
@@ -56,35 +56,17 @@ void pollEvents(sf::RenderWindow &window, sf::Vector2f &mousePosition, sf::Vecto
     }
 }
 
-void updateArrowElements(Cat &arrow)
-{
-    const sf::Vector2f headOffset = toEuclidean(23, arrow.rotation);
-    arrow.head.setPosition(arrow.position + headOffset);
-    arrow.head.setRotation(toDegrees(arrow.rotation));
-}
-
-Cat addCat()
+Cat addCat(sf::Sprite &sprite)
 {
     const float outlineWidth = 3.f;
     const sf::Color outlineColor = sf::Color(1, 1, 1);
     const sf::Color fillColor = sf::Color(227, 206, 18);
     const sf::Vector2f startPosition = sf::Vector2f({250, 250});
     Cat newCat;
-    newCat.head.setPointCount(7);
-    newCat.head.setPoint(0, {30, 0});
-    newCat.head.setPoint(1, {0, -40});
-    newCat.head.setPoint(2, {0, -20});
-    newCat.head.setPoint(3, {-40, -20});
-    newCat.head.setPoint(4, {-40, 20});
-    newCat.head.setPoint(5, {0, 20});
-    newCat.head.setPoint(6, {0, 40});
-    newCat.head.setFillColor(fillColor);
-    newCat.head.setOutlineThickness(outlineWidth);
-    newCat.head.setOutlineColor(outlineColor);
 
+    newCat.head = sprite;
     newCat.position = startPosition;
     newCat.head.setPosition(newCat.position);
-    updateArrowElements(newCat);
     return newCat;
 }
 
@@ -144,10 +126,11 @@ void update(const sf::Vector2f &mousePosition, Cat &cat, const float dt)
     }
 }
 
-void redrawFrame(sf::RenderWindow &window, Cat &cat)
+void redrawFrame(sf::RenderWindow &window, Cat &cat, sf::Sprite ptrTexture)
 {
     window.clear(sf::Color(244, 244, 244));
     window.draw(cat.head);
+    window.draw(ptrTexture);
     window.display();
 }
 
@@ -164,16 +147,27 @@ int main()
     sf::Vector2f mousePosition;
     sf::Vector2f targetPosition = {0, 0};
 
-    Cat cat = addCat();
+    sf::Texture catTexture;
+    catTexture.loadFromFile("cat1.png");
+    sf::Sprite catSprite;
+    catSprite.setTexture(catTexture);
+
+    sf::Texture ptrTexture;
+    ptrTexture.loadFromFile("red_pointer.png");
+    sf::Sprite ptrSprite;
+    ptrSprite.setTexture(ptrTexture);
+
+    Cat cat = addCat(catSprite);
 
     while (window.isOpen())
     {
+        ptrSprite.setPosition(mousePosition);
         const float dt = clock.restart().asSeconds();
         pollEvents(window, mousePosition, targetPosition);
         if (targetPosition.x != 0 && targetPosition.y != 0)
         {
             update(targetPosition, cat, dt);
         }
-        redrawFrame(window, cat);
+        redrawFrame(window, cat, ptrSprite);
     }
 }
