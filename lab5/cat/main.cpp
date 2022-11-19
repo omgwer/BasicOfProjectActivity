@@ -10,11 +10,11 @@ struct Cat
     float rotation = 0;
 };
 
-sf::Vector2f toEuclidean(float radiusX, float radiusY, float angle)
+sf::Vector2f toEuclidean(float radius, float angle)
 {
     return {
-        radiusX * (float)cos(angle),
-        radiusY * (float)sin(angle)};
+        radius * (float)cos(angle),
+        radius * (float)sin(angle)};
 }
 
 float toDegrees(float radians)
@@ -39,6 +39,9 @@ void pollEvents(sf::RenderWindow &window, sf::Vector2f &mousePosition)
         case ::sf::Event::Closed:
             window.close();
             break;
+        case sf::Event::MouseMoved:
+            onMouseMove(event.mouseMove, mousePosition);
+            break;
         case sf::Event::MouseButtonPressed:
             onMouseMove(event.mouseMove, mousePosition);
             break;
@@ -48,23 +51,15 @@ void pollEvents(sf::RenderWindow &window, sf::Vector2f &mousePosition)
     }
 }
 
-void updateCat(Cat &cat, float angle, const sf::Vector2f &mousePosition)
+void updateArrowElements(Cat &arrow)
 {
-}
+    const sf::Vector2f headOffset = toEuclidean(23, arrow.rotation);
+    arrow.head.setPosition(arrow.position + headOffset);
+    arrow.head.setRotation(toDegrees(arrow.rotation));
 
-void update(const sf::Vector2f &mousePosition, Cat &cat, const float dt)
-{
-    const sf::Vector2f deltaLeft = mousePosition - cat.head.getPosition();
-    const float angleLeft = atan2(deltaLeft.y, deltaLeft.x);
-    updateCat(cat, angleLeft, mousePosition);
-}
-
-void redrawFrame(sf::RenderWindow &window, Cat &cat)
-{
-    window.clear(sf::Color(244, 244, 244));
-    window.draw(cat.head);
-    window.draw(cat.stem);
-    window.display();
+    const sf::Vector2f stemOffset = toEuclidean(0, arrow.rotation);
+    arrow.stem.setPosition(arrow.position);
+    arrow.stem.setRotation(toDegrees(arrow.rotation));
 }
 
 Cat addCat()
@@ -73,31 +68,39 @@ Cat addCat()
     const sf::Color outlineColor = sf::Color(1, 1, 1);
     const sf::Color fillColor = sf::Color(227, 206, 18);
     const sf::Vector2f startPosition = sf::Vector2f({250, 250});
-
     Cat newCat;
     newCat.head.setPointCount(3);
     newCat.head.setPoint(0, {30, 0});
-    newCat.head.setPoint(1, {0, -20});
-    newCat.head.setPoint(2, {0, 20});
+    newCat.head.setPoint(1, {0, -40});
+    newCat.head.setPoint(2, {0, 40});
     newCat.head.setFillColor(fillColor);
     newCat.head.setOutlineThickness(outlineWidth);
     newCat.head.setOutlineColor(outlineColor);
-
-    newCat.stem.setSize({80, 20});
-    newCat.stem.setOrigin({40, 10});
+    newCat.stem.setSize({40, 40});
+    newCat.stem.setOrigin({20, 20});
     newCat.stem.setFillColor(fillColor);
     newCat.stem.setOutlineThickness(outlineWidth);
     newCat.stem.setOutlineColor(outlineColor);
-
-    newCat.head.setPosition(startPosition);
-    newCat.stem.setPosition(startPosition);
-
+    newCat.position = startPosition;
+    newCat.head.setPosition(newCat.position);
+    newCat.stem.setPosition(newCat.position);
+    updateArrowElements(newCat);
     return newCat;
 }
 
-void init(Cat &cat)
+void update(const sf::Vector2f &mousePosition, Cat &cat, const float dt)
 {
-    cat = addCat();
+    const sf::Vector2f delta = mousePosition - cat.position;
+    cat.rotation = atan2(delta.y, delta.x);
+    updateArrowElements(cat);
+}
+
+void redrawFrame(sf::RenderWindow &window, Cat &cat)
+{
+    window.clear(sf::Color(244, 244, 244));
+    window.draw(cat.head);
+    window.draw(cat.stem);
+    window.display();
 }
 
 int main()
@@ -112,9 +115,7 @@ int main()
     sf::Clock clock;
     sf::Vector2f mousePosition;
 
-    Cat cat;
-
-    init(cat);
+    Cat cat = addCat();
 
     while (window.isOpen())
     {
