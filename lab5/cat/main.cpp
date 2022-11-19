@@ -5,7 +5,6 @@
 struct Cat
 {
     sf::ConvexShape head;
-    sf::RectangleShape stem;
     sf::Vector2f position;
     float rotation = 0;
 };
@@ -24,7 +23,7 @@ float toDegrees(float radians)
 
 void onMouseMove(const sf::Event::MouseMoveEvent &event, sf::Vector2f &mousePosition)
 {
-    std::cout << "mouse x=" << event.x << " , y= " << event.y << std::endl;
+    //std::cout << "mouse x=" << event.x << " , y= " << event.y << std::endl;
     mousePosition = {float(event.x), float(event.y)};
 }
 
@@ -56,10 +55,6 @@ void updateArrowElements(Cat &arrow)
     const sf::Vector2f headOffset = toEuclidean(23, arrow.rotation);
     arrow.head.setPosition(arrow.position + headOffset);
     arrow.head.setRotation(toDegrees(arrow.rotation));
-
-    const sf::Vector2f stemOffset = toEuclidean(0, arrow.rotation);
-    arrow.stem.setPosition(arrow.position);
-    arrow.stem.setRotation(toDegrees(arrow.rotation));
 }
 
 Cat addCat()
@@ -69,37 +64,84 @@ Cat addCat()
     const sf::Color fillColor = sf::Color(227, 206, 18);
     const sf::Vector2f startPosition = sf::Vector2f({250, 250});
     Cat newCat;
-    newCat.head.setPointCount(3);
+    newCat.head.setPointCount(7);
     newCat.head.setPoint(0, {30, 0});
     newCat.head.setPoint(1, {0, -40});
-    newCat.head.setPoint(2, {0, 40});
+    newCat.head.setPoint(2, {0, -20});
+    newCat.head.setPoint(3, {-40, -20});
+    newCat.head.setPoint(4, {-40, 20});
+    newCat.head.setPoint(5, {0, 20});
+    newCat.head.setPoint(6, {0, 40});
     newCat.head.setFillColor(fillColor);
     newCat.head.setOutlineThickness(outlineWidth);
     newCat.head.setOutlineColor(outlineColor);
-    newCat.stem.setSize({40, 40});
-    newCat.stem.setOrigin({20, 20});
-    newCat.stem.setFillColor(fillColor);
-    newCat.stem.setOutlineThickness(outlineWidth);
-    newCat.stem.setOutlineColor(outlineColor);
+
     newCat.position = startPosition;
     newCat.head.setPosition(newCat.position);
-    newCat.stem.setPosition(newCat.position);
     updateArrowElements(newCat);
     return newCat;
 }
 
+sf::Vector2f getNormalize(sf::Vector2f delta)
+{
+    sf::Vector2f normalizeVector;
+    normalizeVector.x = ((float)delta.x / (float)sqrt(delta.x * delta.x + delta.y * delta.y));
+    normalizeVector.y = ((float)delta.y / (float)sqrt(delta.x * delta.x + delta.y * delta.y));
+    return normalizeVector;
+}
+
 void update(const sf::Vector2f &mousePosition, Cat &cat, const float dt)
 {
-    const sf::Vector2f delta = mousePosition - cat.position;
-    cat.rotation = atan2(delta.y, delta.x);
-    updateArrowElements(cat);
+    const sf::Vector2f oldPosition = cat.head.getPosition();
+    const sf::Vector2f delta = mousePosition - oldPosition;
+    const float angleMaxSpeed = 45 * dt;
+    float angle = atan2(delta.y, delta.x);
+    if (angle < 0)
+        angle += 2 * M_PI;
+    angle = toDegrees(angle);
+    const float oldRotation = cat.head.getRotation();
+    const float rotation = std::abs(angle - oldRotation);
+
+    //update angle
+    if (angle != oldRotation)
+    {
+        if (angle > oldRotation)
+        {
+            if ((angle - 180) > oldRotation)
+            {
+                cat.head.setRotation(oldRotation - std::min(angleMaxSpeed, rotation));
+            }
+            else
+            {
+                cat.head.setRotation(oldRotation + std::min(angleMaxSpeed, rotation));
+            }
+        }
+        else
+        {
+            if ((angle + 180) < oldRotation)
+            {
+                cat.head.setRotation(oldRotation + std::min(angleMaxSpeed, rotation));
+            }
+            else
+            {
+                cat.head.setRotation(oldRotation - std::min(angleMaxSpeed, rotation));
+            }
+        }
+    }
+
+    //updatePosition
+    if (oldPosition != mousePosition)
+    {
+        sf::Vector2f normalizeVector = getNormalize(delta);
+        const float maxSpeed = 20 * dt;
+        cat.head.setPosition(oldPosition + normalizeVector * maxSpeed);
+    }
 }
 
 void redrawFrame(sf::RenderWindow &window, Cat &cat)
 {
     window.clear(sf::Color(244, 244, 244));
     window.draw(cat.head);
-    window.draw(cat.stem);
     window.display();
 }
 
