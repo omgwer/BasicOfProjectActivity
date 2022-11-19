@@ -21,9 +21,9 @@ float toDegrees(float radians)
     return float(double(radians) * 180.0 / M_PI);
 }
 
-void onMouseMove(const sf::Event::MouseMoveEvent &event, sf::Vector2f &mousePosition)
+void onMouseMove(const sf::Event::MouseButtonEvent &event, sf::Vector2f &mousePosition)
 {
-    //std::cout << "mouse x=" << event.x << " , y= " << event.y << std::endl;
+    std::cout << "mouse x=" << event.x << " , y= " << event.y << std::endl;
     mousePosition = {float(event.x), float(event.y)};
 }
 
@@ -38,11 +38,8 @@ void pollEvents(sf::RenderWindow &window, sf::Vector2f &mousePosition)
         case ::sf::Event::Closed:
             window.close();
             break;
-        case sf::Event::MouseMoved:
-            onMouseMove(event.mouseMove, mousePosition);
-            break;
         case sf::Event::MouseButtonPressed:
-            onMouseMove(event.mouseMove, mousePosition);
+            onMouseMove(event.mouseButton, mousePosition);
             break;
         default:
             break;
@@ -155,7 +152,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Cat", sf::Style::Default, settings);
 
     sf::Clock clock;
-    sf::Vector2f mousePosition;
+    sf::Vector2f mousePosition = {0, 0};
 
     Cat cat = addCat();
 
@@ -163,7 +160,10 @@ int main()
     {
         const float dt = clock.restart().asSeconds();
         pollEvents(window, mousePosition);
-        update(mousePosition, cat, dt);
+        if (mousePosition.x != 0 && mousePosition.y != 0)
+        {
+            update(mousePosition, cat, dt);
+        }
         redrawFrame(window, cat);
     }
 }
