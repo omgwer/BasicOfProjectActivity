@@ -54,18 +54,36 @@ void pollEvents(sf::RenderWindow &window, sf::Vector2f &mousePosition)
     }
 }
 
+float getVectorLength(sf::Vector2f vector1, sf::Vector2f vector2)
+{
+    sf::Vector2f length = vector1 - vector2;
+    float result = sqrt(length.x * length.x + length.y * length.y);
+    return result;
+}
+
 void updateEve(Eve &eve, float angle, const sf::Vector2f &mousePosition)
 {
-    const int limit = 40;
-    if ((eve.pupilDefaultPosition.x + limit >= mousePosition.x) && (eve.pupilDefaultPosition.x - limit <= mousePosition.x))
+    //допилить узнать находится ли внутри круга
+    // взять вектор до точки, вычислить длину вектора, и проверить входит ли в радиус круга
+    sf::Vector2f vector1 = eve.whiteOfTheEve.getPosition();
+    sf::Vector2f vector2 = mousePosition;
+
+    float length = getVectorLength(vector1, vector2);
+    //std::cout << length << std::endl;
+    const float limit = 40.f + 80.f * 0.2;
+    // if ((eve.pupilDefaultPosition.x + limit >= mousePosition.x) && (eve.pupilDefaultPosition.x - limit <= mousePosition.x))
+    // {
+    //     //std::cout << "default x = " << eve.pupilDefaultPosition.x << "default y = " << eve.pupilDefaultPosition.y << std::endl;
+    //     if ((eve.pupilDefaultPosition.y + limit >= mousePosition.y) && (eve.pupilDefaultPosition.y - limit <= mousePosition.y))
+    //     {
+    //         eve.pupilOfTheEve.setPosition(mousePosition);
+    //         return;
+    //     }
+    // }
+    if (length <= limit)
     {
-        std::cout << "default x = " << eve.pupilDefaultPosition.x << "default y = " << eve.pupilDefaultPosition.y << std::endl
-                  << std::endl;
-        if ((eve.pupilDefaultPosition.y + limit >= mousePosition.y) && (eve.pupilDefaultPosition.y - limit <= mousePosition.y))
-        {
-            eve.pupilOfTheEve.setPosition(mousePosition);
-            return;
-        }
+        eve.pupilOfTheEve.setPosition(mousePosition);
+        return;
     }
     else
     {
