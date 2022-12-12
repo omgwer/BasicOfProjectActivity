@@ -19,6 +19,7 @@ public:
 
 	Player(sf::Texture& image);	
 
-	void update(float time);
-	
+	void Collision(int);
+
+	void update(float time);	
 };

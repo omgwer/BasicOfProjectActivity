@@ -150,6 +150,11 @@
   <ItemGroup>
     <ClInclude Include="Player.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Data\Picture\chipdale_tileset.png" />
+    <Image Include="Data\Picture\chipndale.gif" />
+    <Image Include="Data\Picture\image 2.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
