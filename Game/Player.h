@@ -1,25 +1,20 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "GameMap.h"
+#include "Person.h"
 
-enum direction {
-	left,
-	right
-};
-
-class Player
+class Player : public Person
 {
 public:
-	float dx, dy;
-	sf::FloatRect rect;
-	bool onGround;
 	bool isReadyForJump;
-	sf::Sprite sprite;
-	float currentFrame;
-	direction moveDirection;
+	bool onGround;
 
-	Player(sf::Texture& image);	
+	Player(sf::Texture& image) : Person(image) {
+		isReadyForJump = false;
+		onGround = false;
+	}
 
-	void Collision(int);
+	void update(GameMap*, float);
 
-	void update(float time);	
+	void collision(GameMap* , int );
 };

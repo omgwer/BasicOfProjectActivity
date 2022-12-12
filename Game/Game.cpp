@@ -1,24 +1,42 @@
-#include <SFML/Graphics.hpp>
-#include "GameMap.h"
-#include "Player.h"
+#include "Game.h"
 using namespace sf;
 
-int main()
-{
-    RenderWindow window(VideoMode(600, 448), "Chip&dale videogame");
+void Game::run() {
+	isRun = true;
+	RenderWindow window(VideoMode(GAME_WIDTH, GAME_HEIGT), GAME_NAME);
+	initPersons();	
+}
+void Game::end() {
+	isRun = false;
+}
+
+void Game::gameFlowCycle() {
+	checkInputs();
+	drawPersons();
+	drawMap();
+
+}
+
+void Game::initPersons() {
     Texture t;
     t.loadFromFile("./Data/Picture/chipndale.gif");
-    GameMap gameMap;
-    Player player(t);  // create new player model
-    
-    Clock clock;
-    //
-    RectangleShape rectangle({32,32});
+    player = Player(t);
+}
+
+void Game::initGameMap() //можно указывать параметром game-level (0 - startMenu, 1- firstLevel etc)
+{
+	// ѕока ничего
+}
+
+void Game::checkInputs()
+{
+    RectangleShape rectangle({ 32,32 });
     while (window.isOpen())
     {
         float time = clock.getElapsedTime().asMicroseconds();
         clock.restart();
         time = time / 200;
+
         Event event;
         while (window.pollEvent(event))
         {
@@ -42,7 +60,7 @@ int main()
             }
             else {
                 player.sprite.setTextureRect(IntRect(63 + 19, 161, -19, 24));
-            }            
+            }
         }
         else if (Keyboard::isKeyPressed(Keyboard::Left)) {
             player.dx = -0.1;
@@ -56,27 +74,40 @@ int main()
                 player.onGround = false;
                 player.isReadyForJump = false;
             }
-        }        
-        player.update(&gameMap,time);
+        }
+        player.update(&gameMap, time);
+
         if (player.rect.left > (600 / 2))
             gameMap.offsetX = player.rect.left - 600 / 2;
         if (player.rect.top > (448 / 2))
             gameMap.offsetY = player.rect.top - 448 / 2;
+
         window.clear(Color::White);
+
         for (int i = 0; i < gameMap.H; i++)
             for (int j = 0; j < gameMap.W; j++)
             {
-                if (gameMap.tileMap[i][j] == 'B') 
+                if (gameMap.tileMap[i][j] == 'B')
                     rectangle.setFillColor(Color::Black);
+
                 if (gameMap.tileMap[i][j] == '0')
                     rectangle.setFillColor(Color::Green);
+
                 if (gameMap.tileMap[i][j] == ' ') continue;
-                rectangle.setPosition(j * 32 - gameMap.offsetX,i * 32 - gameMap.offsetY);
+
+                rectangle.setPosition(j * 32 - gameMap.offsetX, i * 32 - gameMap.offsetY);
                 window.draw(rectangle);
             }
-        
+
         window.draw(player.sprite);
         window.display();
     }
-    return 0;
+}
+
+void Game::drawPersons()
+{
+}
+
+void Game::drawMap()
+{
 }

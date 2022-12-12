@@ -16,12 +16,39 @@
     <Filter Include="Resource Files\Images">
       <UniqueIdentifier>{36e08f6d-b50a-454d-ab56-7c347c10f137}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{19c0ed3f-8cff-4980-a6c2-731cd3326be7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Persons">
+      <UniqueIdentifier>{0c03da90-3000-4bee-a325-de2d7c328e7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helpers">
+      <UniqueIdentifier>{29127f45-dcca-42c0-a11c-5794451deb97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Person.cpp">
+      <Filter>Source Files\Core\Persons</Filter>
+    </ClCompile>
     <ClCompile Include="Player.cpp">
+      <Filter>Source Files\Core\Persons</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\Core\Persons</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteMapper.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Defenitions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,6 +89,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Person.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteMapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Defenitions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
