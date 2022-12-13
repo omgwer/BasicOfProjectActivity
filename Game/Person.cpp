@@ -1,5 +1,9 @@
 #include "Person.h"
 
+Person::Person()
+{
+}
+
 Person::Person(sf::Texture& image)
 {
 	sprite.setTexture(image);

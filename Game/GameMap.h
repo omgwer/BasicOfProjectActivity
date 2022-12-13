@@ -1,13 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-static class GameMap
+class GameMap
 {
 public:
     const int H = 14;
     const int W = 40;
     int offsetX = 0;
     int offsetY = 0;
+
+    GameMap();
 
     sf::String tileMap[14] = {
 

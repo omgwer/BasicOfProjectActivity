@@ -15,6 +15,8 @@ public:
 	float currentFrame;
 	direction moveDirection;	
 
+	Person();
+
 	Person(sf::Texture& image);
 };
 

@@ -11,7 +11,7 @@ void Player::update(GameMap* gameMap, float time)
 	onGround = false;
 	collision(gameMap, 1);
 
-	currentFrame += 0.001 * time;
+	currentFrame += 0.005 * time;
 	if (currentFrame > 3) currentFrame = 1;
 
 	if (dx > 0) {
@@ -30,7 +30,9 @@ void Player::update(GameMap* gameMap, float time)
 void Player::collision(GameMap* gameMap, int axis)
 {
 	for (int i = rect.top / 32; i < (rect.top + rect.height) / 32; i++) {
+		int test = rect.top / 32;
 		for (int j = rect.left / 32; j < (rect.left + rect.width) / 32; j++) {
+			int test2 = rect.left / 32;
 			if (gameMap->tileMap[i][j] == 'B') {
 				if (dx > 0 && axis == 0) {
 					rect.left = j * 32 - rect.width;

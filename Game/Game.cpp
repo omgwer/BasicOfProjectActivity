@@ -1,113 +1,88 @@
 #include "Game.h"
+#include <SFML/Graphics.hpp>
 using namespace sf;
 
+Game::Game(int gameWidth, int gameHeight, std::string gameName) {
+    data->window.create(VideoMode(600, 448), "test");
+    run();
+}
+
 void Game::run() {
-	isRun = true;
-	RenderWindow window(VideoMode(GAME_WIDTH, GAME_HEIGT), GAME_NAME);
-	initPersons();	
-}
-void Game::end() {
-	isRun = false;
-}
-
-void Game::gameFlowCycle() {
-	checkInputs();
-	drawPersons();
-	drawMap();
-
-}
-
-void Game::initPersons() {
     Texture t;
     t.loadFromFile("./Data/Picture/chipndale.gif");
-    player = Player(t);
-}
+    data->player = new Player(t);
+    data->gameMap = new GameMap();
 
-void Game::initGameMap() //можно указывать параметром game-level (0 - startMenu, 1- firstLevel etc)
-{
-	// ѕока ничего
-}
-
-void Game::checkInputs()
-{
     RectangleShape rectangle({ 32,32 });
-    while (window.isOpen())
+
+    while (data->window.isOpen())
     {
         float time = clock.getElapsedTime().asMicroseconds();
         clock.restart();
-        time = time / 200;
+        time = time / 300;
 
-        Event event;
-        while (window.pollEvent(event))
+        sf::Event event;
+        while (this->data->window.pollEvent(event))
         {
             if (event.type == Event::Closed)
-                window.close();
+                data->window.close();
             if (event.type == Event::KeyReleased) {
-                if (player.moveDirection == right) {
-                    player.sprite.setTextureRect(IntRect(19, 161, 19, 24));
+                if (data->player->moveDirection == right) {
+                    data->player->sprite.setTextureRect(IntRect(19, 161, 19, 24));
                 }
                 else {
-                    player.sprite.setTextureRect(IntRect(19 + 19, 161, -19, 24));
+                    data->player->sprite.setTextureRect(IntRect(19 + 19, 161, -19, 24));
                 }
                 if (event.key.code == sf::Keyboard::Space) {
-                    player.isReadyForJump = true;
+                    data->player->isReadyForJump = true;
                 }
             }
         }
         if (Keyboard::isKeyPressed(Keyboard::Down)) {
-            if (player.moveDirection == right) {
-                player.sprite.setTextureRect(IntRect(63, 161, 19, 24));
+            if (data->player->moveDirection == right) {
+                data->player->sprite.setTextureRect(IntRect(63, 161, 19, 24));
             }
             else {
-                player.sprite.setTextureRect(IntRect(63 + 19, 161, -19, 24));
+                data->player->sprite.setTextureRect(IntRect(63 + 19, 161, -19, 24));
             }
         }
         else if (Keyboard::isKeyPressed(Keyboard::Left)) {
-            player.dx = -0.1;
+            data->player->dx = -0.1;
         }
         else if (Keyboard::isKeyPressed(Keyboard::Right)) {
-            player.dx = 0.1;
+            data->player->dx = 0.1;
         }
         if (Keyboard::isKeyPressed(Keyboard::Space)) {
-            if (player.onGround && player.isReadyForJump) {
-                player.dy = -0.4;
-                player.onGround = false;
-                player.isReadyForJump = false;
+            if (data->player->onGround && data->player->isReadyForJump) {
+                data->player->dy = -0.4;
+                data->player->onGround = false;
+                data->player->isReadyForJump = false;
             }
         }
-        player.update(&gameMap, time);
+        data->player->update(data->gameMap, time);
 
-        if (player.rect.left > (600 / 2))
-            gameMap.offsetX = player.rect.left - 600 / 2;
-        if (player.rect.top > (448 / 2))
-            gameMap.offsetY = player.rect.top - 448 / 2;
+        if (data->player->rect.left > (600 / 2))
+            data->gameMap->offsetX = data->player->rect.left - 600 / 2;
+        if (data->player->rect.top > (448 / 2))
+            data->gameMap->offsetY = data->player->rect.top - 448 / 2;
 
-        window.clear(Color::White);
-
-        for (int i = 0; i < gameMap.H; i++)
-            for (int j = 0; j < gameMap.W; j++)
+        data->window.clear(Color::White);
+        for (int i = 0; i < data->gameMap->H; i++)
+            for (int j = 0; j < data->gameMap->W; j++)
             {
-                if (gameMap.tileMap[i][j] == 'B')
+                if (data->gameMap->tileMap[i][j] == 'B')
                     rectangle.setFillColor(Color::Black);
 
-                if (gameMap.tileMap[i][j] == '0')
+                if (data->gameMap->tileMap[i][j] == '0')
                     rectangle.setFillColor(Color::Green);
 
-                if (gameMap.tileMap[i][j] == ' ') continue;
+                if (data->gameMap->tileMap[i][j] == ' ') continue;
 
-                rectangle.setPosition(j * 32 - gameMap.offsetX, i * 32 - gameMap.offsetY);
-                window.draw(rectangle);
+                rectangle.setPosition(j * 32 - data->gameMap->offsetX, i * 32 - data->gameMap->offsetY);
+                data->window.draw(rectangle);
             }
 
-        window.draw(player.sprite);
-        window.display();
+        data->window.draw(data->player->sprite);
+        data->window.display();
     }
-}
-
-void Game::drawPersons()
-{
-}
-
-void Game::drawMap()
-{
 }
