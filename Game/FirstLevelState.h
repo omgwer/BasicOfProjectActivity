@@ -13,8 +13,8 @@ public:
 	void Update(float dt);
 	void Draw(float dt);
 private:
-	GameDataRef stateData;
-
-	Player* player;
-	GameMap* gameMap;
+	sf::Texture t ;
+	GameDataRef stateData;	
+	Player* player = nullptr;
+	GameMap* gameMap = nullptr;
 };

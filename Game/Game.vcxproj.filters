@@ -31,6 +31,9 @@
     <Filter Include="Header Files\States">
       <UniqueIdentifier>{0b67ec64-fc61-47c9-9fd9-ec308e287aaf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Persons">
+      <UniqueIdentifier>{cd951d91-b924-4d4b-a70a-a01929475dc8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -103,16 +106,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Person.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
@@ -135,6 +129,15 @@
     </ClInclude>
     <ClInclude Include="FirstLevelState.h">
       <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Person.h">
+      <Filter>Header Files\Persons</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\Persons</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Persons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

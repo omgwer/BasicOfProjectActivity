@@ -1,11 +1,10 @@
 #include "Person.h"
 
-Person::Person(sf::Texture& image)
+Person::Person(int speed, int animationSpeed)
 {
-	sprite.setTexture(image);
-	sprite.setTextureRect(sf::IntRect(19, 161, 19, 24));
-	rect = sf::FloatRect(50, 50, 19, 24);
 	dx = dy = 0;
-	currentFrame = 0;
-	direction moveDirection = right;
+	this->currentFrame = 0;
+	this->moveDirection = right;
+	this->speed = speed;
+	this->animationSpeed = animationSpeed;
 }

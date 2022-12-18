@@ -12,16 +12,14 @@ FirstLevelState::~FirstLevelState()
 }
 
 void FirstLevelState::Init()
-{
-    Texture t;
+{    
     t.loadFromFile("./data/Picture/chipndale.gif");
-    player = new Player(t);
-    gameMap = new GameMap();
+    this->player = new Player(t);
+    this->gameMap = new GameMap();
 }
 
 void FirstLevelState::HandleInput()
-{
-    
+{    
     sf::Event event;
     while (stateData->window.pollEvent(event))
     {
@@ -56,7 +54,6 @@ void FirstLevelState::HandleInput()
 void FirstLevelState::Update(float dt)
 {
     player->update(gameMap, dt);
-
     if (player->rect.left > (600 / 2))
         gameMap->offsetX = player->rect.left - 600 / 2;
     if (player->rect.top > (448 / 2))
@@ -80,13 +77,7 @@ void FirstLevelState::Draw(float dt)
 
             rectangle.setPosition(j * 32 - gameMap->offsetX, i * 32 - gameMap->offsetY);
             stateData->window.draw(rectangle);
-        }
-    Texture t;
-    t.loadFromFile("./data/Picture/chipndale.gif");
-    Sprite s;
-    s.setTexture(t);
-    s.setTextureRect(sf::IntRect(19, 161, 19, 24));
-    stateData->window.draw(s);
+        }   
     stateData->window.draw(player->sprite);
     stateData->window.display();
 }

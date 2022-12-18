@@ -14,15 +14,20 @@ enum PlayerState {
 
 class Player : public Person
 {
-public:
+public:	
 	bool isReadyForJump;
 	bool onGround;	
+	sf::FloatRect rect;
+	sf::Sprite sprite;
 
-	Player(sf::Texture& image) : Person(image) {
+	Player(sf::Texture& image) : Person(speed, animationSpeed) {
 		isReadyForJump = false;
 		onGround = false;
 		speed = 300;
 		animationSpeed = 7;
+		sprite.setTexture(image);
+		sprite.setTextureRect(sf::IntRect(19, 161, 19, 24));
+		rect = sf::FloatRect(50, 50, 19, 24);
 	}
 
 	void update(GameMap*, float);
@@ -33,4 +38,5 @@ public:
 private:	
 	const int jumpPower = 2;
 	const int gravityPower = 5;
+	
 };

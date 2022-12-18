@@ -9,13 +9,10 @@ enum direction {
 class Person
 {
 public:
-	float dx, dy;
-	sf::FloatRect rect;
-	sf::Sprite sprite;
-	float currentFrame;
+	float dx, dy, currentFrame;
 	direction moveDirection;
 	int speed, animationSpeed;
 
-	Person(sf::Texture& image);
+	Person(int, int);
 };
 
