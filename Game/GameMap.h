@@ -4,7 +4,7 @@
 class GameMap
 {
 public:
-    int H, W, offsetX, offsetY;  
+    int h, w, offsetX, offsetY;  
 
     sf::String tileMap[14] = {
 

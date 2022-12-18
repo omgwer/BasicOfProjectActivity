@@ -2,8 +2,8 @@
 
 GameMap::GameMap()
 {
-    H = 14;
-    W = 40;
+    h = 14;
+    w = 40;
     offsetX = 0;
     offsetY = 0;
 }

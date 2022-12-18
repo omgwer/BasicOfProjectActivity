@@ -1,8 +1,8 @@
 #include "Game.h"
-
+#include "Defenitions.h"
 int main()
 { 
-    Game(600, 448, std::string("TestNasd"));
+    Game(GAME_WIDTH, GAME_HEIGHT, GAME_NAME);
 
-    return 133;
+    return 1337;
 }

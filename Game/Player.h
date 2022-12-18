@@ -32,7 +32,7 @@ public:
 
 	void update(GameMap*, float);
 
-	void collision(GameMap* , int );
+	void collision(GameMap*, int);
 
 	void setPlayerState(PlayerState);
 private:	

@@ -32,8 +32,8 @@ void Player::collision(GameMap* gameMap, int axis)
 {
 	for (int i = rect.top / 32; i < (rect.top + rect.height) / 32; i++) {
 		int test = rect.top / 32;
-		if (test > gameMap->H) {
-			i = gameMap->H;
+		if (test > gameMap->h) {
+			i = gameMap->h;
 		}
 		for (int j = rect.left / 32; j < (rect.left + rect.width) / 32; j++) {
 			int test2 = rect.left / 32;

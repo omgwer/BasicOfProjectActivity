@@ -1,6 +1,8 @@
-#include "FirstLevelState.h"
 #include "SFML/Graphics.hpp"
+#include "FirstLevelState.h"
 #include "Player.h"
+#include "Defenitions.h"
+
 using namespace sf;
 
 FirstLevelState::FirstLevelState(GameDataRef data) : stateData(data)
@@ -11,14 +13,14 @@ FirstLevelState::~FirstLevelState()
 {
 }
 
-void FirstLevelState::Init()
+void FirstLevelState::init()
 {    
-    t.loadFromFile("./data/Picture/chipndale.gif");
+    t.loadFromFile(PLAYER_SPRITE_SET_PATH);
     this->player = new Player(t);
     this->gameMap = new GameMap();
 }
 
-void FirstLevelState::HandleInput()
+void FirstLevelState::handleInput()
 {    
     sf::Event event;
     while (stateData->window.pollEvent(event))
@@ -51,21 +53,24 @@ void FirstLevelState::HandleInput()
     }
 }
 
-void FirstLevelState::Update(float dt)
+void FirstLevelState::update(float dt)
 {
-    player->update(gameMap, dt);
+    // update player position
+    player->update(gameMap, dt);   
+
+    // сдвиг карты за игроком
     if (player->rect.left > (600 / 2))
         gameMap->offsetX = player->rect.left - 600 / 2;
     if (player->rect.top > (448 / 2))
         gameMap->offsetY = player->rect.top - 448 / 2;
 }
 
-void FirstLevelState::Draw(float dt)
+void FirstLevelState::draw(float dt)
 {
     RectangleShape rectangle({ 32,32 });
     stateData->window.clear(Color::White);
-    for (int i = 0; i < gameMap->H; i++)
-        for (int j = 0; j < gameMap->W; j++)
+    for (int i = 0; i < gameMap->h; i++)
+        for (int j = 0; j < gameMap->w; j++)
         {            
             if (gameMap->tileMap[i][j] == 'B')
                 rectangle.setFillColor(Color::Black);
@@ -79,5 +84,5 @@ void FirstLevelState::Draw(float dt)
             stateData->window.draw(rectangle);
         }   
     stateData->window.draw(player->sprite);
-    stateData->window.display();
+    stateData->window.display();    
 }

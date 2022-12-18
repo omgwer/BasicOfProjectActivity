@@ -29,7 +29,7 @@ void StateManager::processStateChanges()
 
 		if (!this->_states.empty())
 		{
-			this->_states.top()->Resume();
+			this->_states.top()->resume();
 		}
 
 		this->_isRemoving = false;
@@ -45,12 +45,12 @@ void StateManager::processStateChanges()
 			}
 			else
 			{
-				this->_states.top()->Pause();
+				this->_states.top()->pause();
 			}
 		}
 
 		this->_states.push(std::move(this->_newState));
-		this->_states.top()->Init();
+		this->_states.top()->init();
 		this->_isAdding = false;
 	}
 }

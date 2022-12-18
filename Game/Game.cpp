@@ -5,22 +5,22 @@
 using namespace sf;
 
 Game::Game(int gameWidth, int gameHeight, std::string gameName) {
-    _data->window.create(VideoMode(600, 448), "test");
-    _data->stateManager.addState(StateRef(new FirstLevelState(this->_data)));
+    data->window.create(VideoMode(gameWidth, gameHeight), gameName);
+    data->stateManager.addState(StateRef(new FirstLevelState(this->data)));
     run();
 }
 
 void Game::run() {      
 
-    while (_data->window.isOpen())
+    while (data->window.isOpen())
     {
-        this->_data->stateManager.processStateChanges();
+        this->data->stateManager.processStateChanges();
 
         float dt = clock.getElapsedTime().asSeconds();
         clock.restart();     
 
-        this->_data->stateManager.getActiveState()->HandleInput();
-        this->_data->stateManager.getActiveState()->Update(dt);
-        this->_data->stateManager.getActiveState()->Draw(dt);
+        this->data->stateManager.getActiveState()->handleInput();
+        this->data->stateManager.getActiveState()->update(dt);
+        this->data->stateManager.getActiveState()->draw(dt);
     }
 }

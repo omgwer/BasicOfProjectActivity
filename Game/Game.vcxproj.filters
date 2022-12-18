@@ -28,18 +28,24 @@
     <Filter Include="Source Files\Core\States">
       <UniqueIdentifier>{e1ad8516-418d-4759-856a-fff01befb0d0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\States">
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{4633eba4-ad9b-474e-ac5d-b8f7f8937da6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core\Persons">
+      <UniqueIdentifier>{cd951d91-b924-4d4b-a70a-a01929475dc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core\States">
       <UniqueIdentifier>{0b67ec64-fc61-47c9-9fd9-ec308e287aaf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Persons">
-      <UniqueIdentifier>{cd951d91-b924-4d4b-a70a-a01929475dc8}</UniqueIdentifier>
+    <Filter Include="Header Files\Core\Maps">
+      <UniqueIdentifier>{ba52014b-f561-49c8-8280-5c6f11223e0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Maps">
+      <UniqueIdentifier>{a4c8121a-2d62-4d83-8c14-a11299e26ac7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
@@ -54,12 +60,6 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files\Core\Persons</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteMapper.cpp">
-      <Filter>Source Files\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="Defenitions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MainMenuState.cpp">
       <Filter>Source Files\Core\States</Filter>
     </ClCompile>
@@ -68,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="StateManager.cpp">
       <Filter>Source Files\Core\States</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMap.cpp">
+      <Filter>Source Files\Core\Maps</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -106,38 +109,35 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteMapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Defenitions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
-      <Filter>Header Files\States</Filter>
+      <Filter>Header Files\Core\States</Filter>
     </ClInclude>
     <ClInclude Include="StateManager.h">
-      <Filter>Header Files\States</Filter>
+      <Filter>Header Files\Core\States</Filter>
     </ClInclude>
     <ClInclude Include="MainMenuState.h">
-      <Filter>Header Files\States</Filter>
+      <Filter>Header Files\Core\States</Filter>
     </ClInclude>
     <ClInclude Include="FirstLevelState.h">
-      <Filter>Header Files\States</Filter>
+      <Filter>Header Files\Core\States</Filter>
     </ClInclude>
     <ClInclude Include="Person.h">
-      <Filter>Header Files\Persons</Filter>
+      <Filter>Header Files\Core\Persons</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Header Files\Persons</Filter>
+      <Filter>Header Files\Core\Persons</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Header Files\Persons</Filter>
+      <Filter>Header Files\Core\Persons</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMap.h">
+      <Filter>Header Files\Core\Maps</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
