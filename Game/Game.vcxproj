@@ -133,12 +133,15 @@
   <ItemGroup>
     <ClCompile Include="Defenitions.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FirstLevelState.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SpriteMapper.cpp" />
+    <ClCompile Include="StateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="openal32.dll" />
@@ -156,11 +159,15 @@
   <ItemGroup>
     <ClInclude Include="Defenitions.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FirstLevelState.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMap.h" />
+    <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SpriteMapper.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Data\Picture\chipdale_tileset.png" />

@@ -13,9 +13,8 @@ public:
 	sf::FloatRect rect;
 	sf::Sprite sprite;
 	float currentFrame;
-	direction moveDirection;	
-
-	Person();
+	direction moveDirection;
+	int speed, animationSpeed;
 
 	Person(sf::Texture& image);
 };

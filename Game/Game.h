@@ -1,13 +1,12 @@
 #pragma once
-#include "Player.h"
 #include <SFML/Graphics.hpp>
-using namespace sf;
+#include "StateManager.h"
+#include "Player.h"
 
 struct GameData
-{		
-	RenderWindow window;
-	Player* player;
-	GameMap* gameMap;
+{
+	StateManager stateManager;
+	sf::RenderWindow window;	
 };
 
 typedef std::shared_ptr<GameData> GameDataRef;
@@ -16,8 +15,8 @@ class Game
 {
 private:
 	const float dt = 1.0f / 60.f;
-	Clock clock;
-	GameDataRef data = std::make_shared<GameData>();
+	sf::Clock clock;
+	GameDataRef _data = std::make_shared<GameData>();
 	
 	void run();
 
