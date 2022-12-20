@@ -2,7 +2,7 @@
 #include "Defenitions.h"
 int main()
 { 
-    Game(GAME_WIDTH, GAME_HEIGHT, GAME_NAME);
-
+    Game game(GAME_WIDTH, GAME_HEIGHT, GAME_NAME);
+    game.run();
     return 1337;
 }

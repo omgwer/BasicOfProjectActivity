@@ -6,8 +6,7 @@ using namespace sf;
 
 Game::Game(int gameWidth, int gameHeight, std::string gameName) {
     data->window.create(VideoMode(gameWidth, gameHeight), gameName);
-    data->stateManager.addState(StateRef(new FirstLevelState(this->data)));
-    run();
+    data->stateManager.addState(StateRef(new FirstLevelState(this->data)));    
 }
 
 void Game::run() {      

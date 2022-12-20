@@ -1,13 +1,5 @@
 #include "StateManager.h"
 
-StateManager::StateManager()
-{
-}
-
-StateManager::~StateManager()
-{
-}
-
 void StateManager::addState(StateRef newState, bool isReplacing)
 {
 	this->_isAdding = true;

@@ -14,11 +14,10 @@ class Game
 {
 private:
 	sf::Clock clock;
-	GameDataRef data = std::make_shared<GameData>();
-	
-	void run();
+	GameDataRef data = std::make_shared<GameData>();	
 
 public:
 	Game(int, int, std::string);
+	void run();
 };
 

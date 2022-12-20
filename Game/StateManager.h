@@ -9,8 +9,8 @@ typedef std::unique_ptr<State> StateRef;
 class StateManager
 {
 public:
-	StateManager();
-	~StateManager();
+	StateManager() = default;
+	~StateManager() = default;
 
 	void addState(StateRef newState, bool isReplacing = true);
 	void removeState();
@@ -23,7 +23,7 @@ private:
 	std::stack<StateRef> _states;
 	StateRef _newState;
 
-	bool _isRemoving;
+	bool _isRemoving; //  можно обернуть в enum
 	bool _isAdding;
 	bool _isReplacing;		
 };
