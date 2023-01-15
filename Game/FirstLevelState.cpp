@@ -17,7 +17,7 @@ void FirstLevelState::init()
 {    
     t.loadFromFile(PLAYER_SPRITE_SET_PATH);
     this->player = new Player(t);
-    this->gameMap = new GameMap();
+    this->gameMap = new GameMap(FIRST_LEVEL);
 }
 
 void FirstLevelState::handleInput()
@@ -69,6 +69,7 @@ void FirstLevelState::draw(float dt)
 {
     RectangleShape rectangle({ 32,32 });
     stateData->window.clear(Color::White);
+
     for (int i = 0; i < gameMap->h; i++)
         for (int j = 0; j < gameMap->w; j++)
         {            
