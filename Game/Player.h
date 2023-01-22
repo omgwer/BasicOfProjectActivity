@@ -20,14 +20,14 @@ public:
 	sf::FloatRect rect;
 	sf::Sprite sprite;
 
-	Player(sf::Texture& image) : Person(speed, animationSpeed) {
+	Player(sf::Texture& image, int x, int y) : Person(speed, animationSpeed) {
 		isReadyForJump = false;
 		onGround = false;
 		speed = 300;
 		animationSpeed = 7;
 		sprite.setTexture(image);
-		sprite.setTextureRect(sf::IntRect(19, 161, 19, 24));
-		rect = sf::FloatRect(50, 50, 19, 24);
+		sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+		rect = sf::FloatRect(x, y, 32, 32);
 	}
 
 	void update(GameMap*, float);

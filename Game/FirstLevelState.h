@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "State.h"
 #include "Player.h"
+#include "Enemies.h"
 
 class FirstLevelState : public State {
 public:
@@ -14,8 +15,9 @@ public:
 	void draw(float dt);
 private:
 	sf::Texture t;
-	GameDataRef stateData;	
+	GameDataRef stateData;
 
+	//Enemies* enemies = nullptr;
 	Player* player = nullptr;
 	GameMap* gameMap = nullptr;
 };

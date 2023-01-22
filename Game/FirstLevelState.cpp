@@ -14,9 +14,12 @@ FirstLevelState::~FirstLevelState()
 }
 
 void FirstLevelState::init()
-{    
+{   
+    int playerPositionX = 50;
+    int playerPositionY = 50;
     t.loadFromFile(PLAYER_SPRITE_SET_PATH);
-    this->player = new Player(t);
+    this->player = new Player(t, playerPositionX, playerPositionY);
+    //this->enemies = new Enemies();
     this->gameMap = new GameMap(FIRST_LEVEL);
 }
 
@@ -29,10 +32,10 @@ void FirstLevelState::handleInput()
             stateData->window.close();
         if (event.type == Event::KeyReleased) {
             if (player->moveDirection == right) {
-                player->sprite.setTextureRect(IntRect(19, 161, 19, 24));                
+                player->sprite.setTextureRect(IntRect(0, 0, 32, 32));                
             }
             else {
-                player->sprite.setTextureRect(IntRect(19 + 19, 161, -19, 24));
+                player->sprite.setTextureRect(IntRect(0 + 32, 161, -32, 32));
             }
             if (event.key.code == sf::Keyboard::Space) {
                 player->isReadyForJump = true;
@@ -78,12 +81,15 @@ void FirstLevelState::draw(float dt)
 
             if (gameMap->tileMap[i][j] == '0')
                 rectangle.setFillColor(Color::Green);
+            //if (gameMap->tileMap[i][j] == 'E')
+            //    this->enemies->addEnemy(i, j);            
 
             if (gameMap->tileMap[i][j] == ' ') continue;
 
             rectangle.setPosition(j * 32 - gameMap->offsetX, i * 32 - gameMap->offsetY);
             stateData->window.draw(rectangle);
-        }   
+        }  
+
     stateData->window.draw(player->sprite);
     stateData->window.display();    
 }

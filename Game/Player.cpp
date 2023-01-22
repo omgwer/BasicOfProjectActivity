@@ -9,20 +9,32 @@ void Player::update(GameMap* gameMap, float dt)
 	if (!onGround) 
 		dy = dy + dt * gravityPower;
 	rect.top += dy * dt * speed;
-	onGround = false;
 	collision(gameMap, 1);
 
-	currentFrame += dt * animationSpeed;
-	if (currentFrame > 3) currentFrame = 1;
-
-	if (dx > 0) {
-		sprite.setTextureRect(sf::IntRect(19 * int(currentFrame), 189, 19, 24));
-		moveDirection = right;
+	if (onGround == true) { 
+		currentFrame += dt * animationSpeed;
+		if (currentFrame > 8) currentFrame = 0;
+		if (dx > 0) {
+			sprite.setTextureRect(sf::IntRect(32 * int(currentFrame), 96, 32, 32));
+			moveDirection = right;
+		}
+		if (dx < 0) {
+			sprite.setTextureRect(sf::IntRect(32 * int(currentFrame) + 32, 96, -32, 32));
+			moveDirection = left;
+		}
 	}
-	if (dx < 0) {
-		sprite.setTextureRect(sf::IntRect(19 * int(currentFrame) + 19, 189, -19, 24));
-		moveDirection = left;
-	}
+	else {
+		currentFrame += dt * animationSpeed;
+		if (currentFrame > 5) currentFrame = 2;
+		if (dx > 0) {
+			sprite.setTextureRect(sf::IntRect(32 * int(currentFrame), 5 * 32, 32, 32));
+			moveDirection = right;
+		}
+		if (dx < 0) {
+			sprite.setTextureRect(sf::IntRect(32 * int(currentFrame) + 32, 5 * 32, -32, 32));
+			moveDirection = left;
+		}
+	}	
 
 	sprite.setPosition(rect.left - gameMap->offsetX, rect.top - gameMap->offsetY);
 	dx = 0;
@@ -30,13 +42,13 @@ void Player::update(GameMap* gameMap, float dt)
 
 void Player::collision(GameMap* gameMap, int axis)
 {
+	onGround = false;
 	for (int i = rect.top / 32; i < (rect.top + rect.height) / 32; i++) {
 		int test = rect.top / 32;
 		if (test > gameMap->h) {
 			i = gameMap->h;
 		}
 		for (int j = rect.left / 32; j < (rect.left + rect.width) / 32; j++) {
-			int test2 = rect.left / 32;
 			if (gameMap->tileMap[i][j] == 'B') {
 				if (dx > 0 && axis == 0) {
 					rect.left = j * 32 - rect.width;
@@ -86,10 +98,10 @@ void Player::setPlayerState(PlayerState playerState)
 		break;
 	case DOWN:
 		if (moveDirection == right) {
-			sprite.setTextureRect(sf::IntRect(63, 161, 19, 24));
+			sprite.setTextureRect(sf::IntRect(3 * 32, 4 * 32, 32, 32));
 		}
 		else {
-			sprite.setTextureRect(sf::IntRect(63 + 19, 161, -19, 24));
+			sprite.setTextureRect(sf::IntRect(3 * 32 + 32, 4 * 32, -32, 32));
 		}
 		break;
 	case THROW:

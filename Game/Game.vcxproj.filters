@@ -72,6 +72,9 @@
     <ClCompile Include="GameMap.cpp">
       <Filter>Source Files\Core\Maps</Filter>
     </ClCompile>
+    <ClCompile Include="Enemies.cpp">
+      <Filter>Source Files\Core\Persons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="sfml-window-d-2.dll">
@@ -139,15 +142,18 @@
     <ClInclude Include="GameMap.h">
       <Filter>Header Files\Core\Maps</Filter>
     </ClInclude>
+    <ClInclude Include="Enemies.h">
+      <Filter>Header Files\Core\Persons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Data\Picture\chipndale.gif">
+    <Image Include="D:\WorkDirectory\Background.png">
       <Filter>Resource Files\Images</Filter>
     </Image>
-    <Image Include="Data\Picture\image 2.png">
+    <Image Include="D:\WorkDirectory\Enemies.png">
       <Filter>Resource Files\Images</Filter>
     </Image>
-    <Image Include="Data\Picture\chipdale_tileset.png">
+    <Image Include="D:\WorkDirectory\Player.png">
       <Filter>Resource Files\Images</Filter>
     </Image>
   </ItemGroup>
