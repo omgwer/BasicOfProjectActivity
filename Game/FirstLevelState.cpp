@@ -2,6 +2,7 @@
 #include "FirstLevelState.h"
 #include "Player.h"
 #include "Defenitions.h"
+#include <iostream>
 
 using namespace sf;
 
@@ -17,10 +18,25 @@ void FirstLevelState::init()
 {   
     int playerPositionX = 50;
     int playerPositionY = 50;
-    t.loadFromFile(PLAYER_SPRITE_SET_PATH);
-    this->player = new Player(t, playerPositionX, playerPositionY);
-    //this->enemies = new Enemies();
+    playerTexture.loadFromFile(PLAYER_SPRITE_SET_PATH);
+    enemyTexture.loadFromFile(ENEMY_SPRITE_SET_PATH);
+    this->enemies = new Enemies();
     this->gameMap = new GameMap(FIRST_LEVEL);
+
+    // инициализация позиций врагов и игрока
+    for (int i = 0; i < gameMap->h; i++)
+        for (int j = 0; j < gameMap->w; j++) {
+            if (gameMap->tileMap[i][j] == 'P') {
+                int positionX = j * 32;
+                int positionY = i * 32 - 15;
+                this->player = new Player(playerTexture, positionX, positionY);
+            }                
+            if (gameMap->tileMap[i][j] == 'E') {
+                int positionX = j * 32;
+                int positionY = i * 32 - 15;
+                this->enemies->addEnemy(enemyTexture, positionX, positionY);
+            }                
+        }
 }
 
 void FirstLevelState::handleInput()
@@ -61,6 +77,9 @@ void FirstLevelState::update(float dt)
     // update player position
     player->update(gameMap, dt);   
 
+    //
+    enemies->update(gameMap, dt);
+
     // сдвиг карты за игроком
     if (player->rect.left > (600 / 2))
         gameMap->offsetX = player->rect.left - 600 / 2;
@@ -79,17 +98,24 @@ void FirstLevelState::draw(float dt)
             if (gameMap->tileMap[i][j] == 'B')
                 rectangle.setFillColor(Color::Black);
 
-            if (gameMap->tileMap[i][j] == '0')
-                rectangle.setFillColor(Color::Green);
-            //if (gameMap->tileMap[i][j] == 'E')
-            //    this->enemies->addEnemy(i, j);            
+            else if (gameMap->tileMap[i][j] == '0')
+                rectangle.setFillColor(Color::Green);            
 
-            if (gameMap->tileMap[i][j] == ' ') continue;
+            else {
+                continue;
+            }
+                
+               /* if (gameMap->tileMap[i][j] == ' ' || gameMap->tileMap[i][j] == 'P' )
+                continue;*/
 
             rectangle.setPosition(j * 32 - gameMap->offsetX, i * 32 - gameMap->offsetY);
             stateData->window.draw(rectangle);
         }  
 
+    for (int i = 0; i < this->enemies->enemyList.size(); i++) {
+        Enemy test = enemies->enemyList[i];
+        stateData->window.draw(test.sprite);
+    }
     stateData->window.draw(player->sprite);
     stateData->window.display();    
 }

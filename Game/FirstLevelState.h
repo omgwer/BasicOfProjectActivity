@@ -14,10 +14,11 @@ public:
 	void update(float dt);
 	void draw(float dt);
 private:
-	sf::Texture t;
+	sf::Texture playerTexture;
+	sf::Texture enemyTexture;
 	GameDataRef stateData;
 
-	//Enemies* enemies = nullptr;
+	Enemies* enemies = nullptr;
 	Player* player = nullptr;
 	GameMap* gameMap = nullptr;
 };

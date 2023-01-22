@@ -2,16 +2,16 @@
 #include "Enemy.h"
 #include <vector>
 
-//class Enemies
-//{
-//public:
-//	Enemies();
-//	std::vector<Enemy> enemyList;
-//	void addEnemy(int, int);
-//private:
-//
-//};
-//
-//Enemies::Enemies()
-//{
-//}
+class Enemies
+{
+public:
+	Enemies();
+
+	void update(GameMap* , float);
+	std::vector<Enemy> enemyList;
+	void addEnemy(sf::Texture&, int, int);
+private:
+
+};
+
+

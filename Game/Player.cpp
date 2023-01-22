@@ -2,6 +2,16 @@
 #include "Person.h"
 #include <SFML/Graphics.hpp>
 
+Player::Player(sf::Texture& image, int x, int y) : Person(speed, animationSpeed) {
+	isReadyForJump = false;
+	onGround = false;
+	speed = 300;
+	animationSpeed = 7;
+	sprite.setTexture(image);
+	sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+	rect = sf::FloatRect(x, y, 32, 32);
+}
+
 void Player::update(GameMap* gameMap, float dt)
 {	
 	rect.left += dx * dt * speed;

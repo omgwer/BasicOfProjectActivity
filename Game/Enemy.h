@@ -5,16 +5,10 @@
 
 class Enemy : public Person
 {
+public:
+	Enemy(sf::Texture&, int, int y);
+	void update(GameMap*, float);
 	sf::FloatRect rect;
-	sf::Sprite sprite;
-
-	Enemy(sf::Texture& image, int x, int y) : Person(speed, animationSpeed) {
-		speed = 250;
-		animationSpeed = 7;
-		sprite.setTexture(image);
-		sprite.setTextureRect(sf::IntRect(19, 161, 19, 24));
-		rect = sf::FloatRect(x, y, 19, 24);
-	}
-
+	sf::Sprite sprite;	
 };
 

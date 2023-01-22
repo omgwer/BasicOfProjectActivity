@@ -12,7 +12,7 @@ enum PlayerState {
 	HIDDEN
 };
 
-class Player : public Person
+class  Player : public Person
 {
 public:	
 	bool isReadyForJump;
@@ -20,15 +20,7 @@ public:
 	sf::FloatRect rect;
 	sf::Sprite sprite;
 
-	Player(sf::Texture& image, int x, int y) : Person(speed, animationSpeed) {
-		isReadyForJump = false;
-		onGround = false;
-		speed = 300;
-		animationSpeed = 7;
-		sprite.setTexture(image);
-		sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
-		rect = sf::FloatRect(x, y, 32, 32);
-	}
+	Player(sf::Texture&, int, int);
 
 	void update(GameMap*, float);
 

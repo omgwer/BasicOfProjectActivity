@@ -33,11 +33,11 @@ void GameMap::setFirstLevel() {
       "B                                B0    B     ",
       "B                                BB    B     ",
       "BBB       0000                  BB    0B     ",
-      "B                                B    BB     ",
+      "B   E                            B    BB     ",
       "B   B                          BBB0    B     ",
-      "B              BB                BB    B     ",
+      "B    P         BB                BB    B     ",
       "B    B         BB                      B     ",
-      "B    B         BB    E    BB       B         ",
+      "B    B         BB         BB       B         ",
       "BBBBBBB   BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
     };
 
