@@ -14,6 +14,5 @@ public:
 	sf::FloatRect rect;
 	sf::Sprite sprite;
 private: 
-	const int gravityPower = 5;
+	int gravityPower = 5;
 };
-

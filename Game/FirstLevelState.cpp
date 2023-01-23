@@ -58,6 +58,9 @@ void FirstLevelState::handleInput()
             }
         }
     }
+    if (Keyboard::isKeyPressed(Keyboard::LControl)) {
+        player->setPlayerState(PlayerState::ATTACK);
+    }
     if (Keyboard::isKeyPressed(Keyboard::Down)) {
         player->setPlayerState(PlayerState::DOWN);
     }
@@ -69,7 +72,7 @@ void FirstLevelState::handleInput()
     }
     if (Keyboard::isKeyPressed(Keyboard::Space)) {
         player->setPlayerState(PlayerState::JUMP);
-    }
+    }    
 }
 
 void FirstLevelState::update(float dt)
@@ -91,7 +94,7 @@ void FirstLevelState::update(float dt)
 void FirstLevelState::draw(float dt)
 {
     RectangleShape rectangle({ 32,32 });
-    stateData->window.clear(Color::White);
+    stateData->window.clear(sf::Color(160, 82, 45, 1));
 
     for (int i = 0; i < gameMap->h; i++)
         for (int j = 0; j < gameMap->w; j++)

@@ -4,6 +4,7 @@
 
 Player::Player(sf::Texture& image, int x, int y) : Person(speed, animationSpeed) {
 	isReadyForJump = false;
+	isAttack = false;
 	onGround = false;
 	speed = 250;
 	animationSpeed = 7;
@@ -14,13 +15,32 @@ Player::Player(sf::Texture& image, int x, int y) : Person(speed, animationSpeed)
 
 void Player::update(GameMap* gameMap, float dt, Enemies* enemies)
 {	
+	if (isAttack) {
+		collisionEnemies(gameMap, enemies);
+		currentFrame += dt * animationSpeed;
+		if (currentFrame > 8) {
+			currentFrame = 0;
+			isAttack = false;
+		}			
+		if (moveDirection == right) {
+			sprite.setTextureRect(sf::IntRect(32 * int(currentFrame), 8 * 32, 32, 32));
+		}
+		if (moveDirection == left) {
+			sprite.setTextureRect(sf::IntRect(32 * int(currentFrame) + 32, 8 * 32, -32, 32));
+		}
+		
+		return;
+	}	
+
+	collisionEnemies(gameMap, enemies);
+
 	rect.left += dx * dt * speed;
-	collision(gameMap, 0, enemies);
+	collision(gameMap, 0);	
 	if (!onGround) 
 		dy = dy + dt * gravityPower;
 	rect.top += dy * dt * speed;
-	collision(gameMap, 1, enemies);
-	
+	collision(gameMap, 1);
+		
 	if (onGround == true) { 
 		currentFrame += dt * animationSpeed;
 		if (currentFrame > 8) currentFrame = 0;
@@ -50,39 +70,7 @@ void Player::update(GameMap* gameMap, float dt, Enemies* enemies)
 	dx = 0;
 }
 
-void Player::collision(GameMap* gameMap, int axis, Enemies* enemies)
-{
-	int defaultLeft = 50;
-	int defaultTop = 50;
-	for (int i = 0; i < enemies->enemyList.size(); i++) {
-		float enemyYPositionBase = enemies->enemyList[i].rect.top;
-		float enemyXPositionBase = enemies->enemyList[i].rect.left;
-		
-		int testWidth = 20;
-		for (int y = rect.top; y < (rect.top + rect.height); y++) {
-			for (int x = rect.left; x < (rect.left + testWidth); x++) {
-				for (int eY = enemyYPositionBase; eY < (enemyYPositionBase + rect.height); eY++) {
-					for (int eX = enemyXPositionBase; eX < (enemyXPositionBase + testWidth); eX++) {
-						if (x == eX && y == eY) {	
-							if (lifeCount <= 1) {
-								throw std::exception("game over!");
-							}
-							lifeCount--;
-							rect.left = defaultLeft;
-							rect.top = defaultTop;
-							gameMap->offsetY = 0;
-							gameMap->offsetX = 0;
-							
-						}
-					}
-				}							
-			}
-		}
-	}
-
-
-
-
+void Player::collision(GameMap* gameMap, int axis) {
 	// collision with game map or bonuses
 	onGround = false;
 	for (int i = rect.top / 32; i < (rect.top + rect.height) / 32; i++) {
@@ -121,6 +109,42 @@ void Player::collision(GameMap* gameMap, int axis, Enemies* enemies)
 	}
 }
 
+void Player::collisionEnemies(GameMap* gameMap, Enemies* enemies) {
+	int defaultLeft = 50;
+	int defaultTop = 50;
+	for (int i = 0; i < enemies->enemyList.size(); i++) {
+		float enemyYPositionBase = enemies->enemyList.at(i).rect.top;
+		float enemyXPositionBase = enemies->enemyList.at(i).rect.left;
+
+		int testWidth = 20;
+		for (int y = rect.top; y < (rect.top + rect.height); y++) {
+			for (int x = rect.left; x < (rect.left + testWidth); x++) {
+				for (int eY = enemyYPositionBase; eY < (enemyYPositionBase + rect.height); eY++) {
+					for (int eX = enemyXPositionBase; eX < (enemyXPositionBase + testWidth); eX++) {
+						if (x == eX && y == eY) {
+							
+							if (isAttack) {								
+								std::vector<Enemy>::iterator nth = enemies->enemyList.begin() + i;
+								enemies->enemyList.erase(nth);							
+								return;
+							}
+							if (lifeCount <= 1) {
+								throw std::exception("game over!");
+							}
+							lifeCount--;
+							rect.left = defaultLeft;
+							rect.top = defaultTop;
+							gameMap->offsetY = 0;
+							gameMap->offsetX = 0;
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
 void Player::setPlayerState(PlayerState playerState)
 {
 	switch (playerState)
@@ -146,8 +170,11 @@ void Player::setPlayerState(PlayerState playerState)
 			sprite.setTextureRect(sf::IntRect(3 * 32 + 32, 4 * 32, -32, 32));
 		}
 		break;
-	case THROW:
-		break;	
+	case ATTACK:	
+		if (isAttack == false) {
+			isAttack = true;
+		}			
+		break;
 	default:
 		break;
 	}

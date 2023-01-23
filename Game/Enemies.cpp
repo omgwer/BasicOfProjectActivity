@@ -11,6 +11,7 @@ void Enemies::update(GameMap* gameMap, float dt)
 	}
 }
 
+
 void Enemies::addEnemy(sf::Texture& enemyTexture, int x, int y)
 {
 	Enemy* enemy = new Enemy(enemyTexture, x , y);

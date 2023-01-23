@@ -9,7 +9,7 @@ enum PlayerState {
 	RIGHT,
 	JUMP,
 	DOWN,
-	THROW,
+	ATTACK,
 	HIDDEN
 };
 
@@ -25,11 +25,15 @@ public:
 
 	void update(GameMap*, float, Enemies*);
 
-	void collision(GameMap*, int, Enemies*);
+	void collision(GameMap*, int);
+
+	void collisionEnemies(GameMap*, Enemies*);
 
 	void setPlayerState(PlayerState);
 private:	
 	const int jumpPower = 2;
 	const int gravityPower = 5;
 	int lifeCount = 3;
+	bool isAttack;
+	int attackFrames = 0;
 };
