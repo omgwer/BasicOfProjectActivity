@@ -23,7 +23,6 @@ void GameMap::setLevel(Level level) {
 }
 
 void GameMap::setFirstLevel() {
-
     tileMap = {
       "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
       "B                                      B     ",
@@ -31,14 +30,14 @@ void GameMap::setFirstLevel() {
       "B                                B    0B     ",
       "B                                B    BB     ",
       "B                                B0    B     ",
-      "B E         E                    BB    B     ",
+      "B                                BB    B     ",
       "BBB       0000                  BB    0B     ",
-      "B   E                            B    BB     ",
+      "B   P                            B    BB     ",
       "B   B                          BBB0    B     ",
-      "B    P         BB                BB    B     ",
+      "B              BB                BB    B     ",
       "B    B         BB                      B     ",
-      "B    B         BB      E  BB       B         ",
-      "BBBBBBB   BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+      "B         B  E    B                B         ",
+      "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
     };
 
     offsetX = 0;

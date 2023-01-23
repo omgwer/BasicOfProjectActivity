@@ -75,10 +75,11 @@ void FirstLevelState::handleInput()
 void FirstLevelState::update(float dt)
 {
     // update player position
-    player->update(gameMap, dt);   
+    player->update(gameMap, dt, enemies);
 
     //
     enemies->update(gameMap, dt);
+       
 
     // сдвиг карты за игроком
     if (player->rect.left > (600 / 2))
