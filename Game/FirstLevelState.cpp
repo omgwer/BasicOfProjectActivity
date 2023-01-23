@@ -33,7 +33,7 @@ void FirstLevelState::init()
             }                
             if (gameMap->tileMap[i][j] == 'E') {
                 int positionX = j * 32;
-                int positionY = i * 32 - 15;
+                int positionY = i * 32 + 2;
                 this->enemies->addEnemy(enemyTexture, positionX, positionY);
             }                
         }
