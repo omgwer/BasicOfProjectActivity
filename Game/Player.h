@@ -35,5 +35,5 @@ private:
 	const int gravityPower = 5;
 	int lifeCount = 3;
 	bool isAttack;
-	int attackFrames = 0;
+	bool isAttackFramesZero = false;
 };
