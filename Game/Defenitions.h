@@ -1,7 +1,9 @@
 #pragma once
 
-static int GAME_WIDTH = 600;
-static int GAME_HEIGHT = 448;
+//static int GAME_WIDTH = 600;
+//static int GAME_HEIGHT = 448;
+static int GAME_WIDTH = 800;
+static int GAME_HEIGHT = 600;
 static std::string GAME_NAME = "Chip ghost adventure";
 // player sprite path
 static std::string PLAYER_SPRITE_SET_PATH = "./data/Picture/Player.png";
