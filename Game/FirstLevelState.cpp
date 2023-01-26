@@ -8,6 +8,37 @@ using namespace sf;
 
 FirstLevelState::FirstLevelState(GameDataRef data) : stateData(data)
 {
+    backgroundTexture.loadFromFile(BACKGROUND_SPRITE_SET_PATH);
+    backgroundSprite.setTexture(backgroundTexture);
+    backgroundSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+    spriteVector->push_back(backgroundSprite);
+
+    terraintTexture.loadFromFile(TERRAIN_SPRITE_SET_PATH);
+    terrainSprite.setTexture(terraintTexture);
+
+    terrainSprite.setTextureRect(sf::IntRect(96, 0, 32, 32));
+    spriteVector->push_back(terrainSprite);
+
+    terrainSprite.setTextureRect(sf::IntRect(96, 62, 32, 32));
+    spriteVector->push_back(terrainSprite);
+
+    terrainSprite.setTextureRect(sf::IntRect(96, 128, 32, 32));
+    spriteVector->push_back(terrainSprite);
+
+    terrainSprite.setTextureRect(sf::IntRect(208, 16, 32, 32));
+    spriteVector->push_back(terrainSprite);
+
+    terrainSprite.setTextureRect(sf::IntRect(208, 80, 32, 32));
+    spriteVector->push_back(terrainSprite);
+
+    terrainSprite.setTextureRect(sf::IntRect(208, 144, 32, 32));
+    spriteVector->push_back(terrainSprite);
+
+    terrainSprite.setTextureRect(sf::IntRect(320, 64, 32, 32));
+    spriteVector->push_back(terrainSprite);
+
+    terrainSprite.setTextureRect(sf::IntRect(288, 144, 32, 32));
+    spriteVector->push_back(terrainSprite);
 }
 
 FirstLevelState::~FirstLevelState()
@@ -30,11 +61,13 @@ void FirstLevelState::init()
                 int positionX = j * 32;
                 int positionY = i * 32 - 15;
                 this->player = new Player(playerTexture, positionX, positionY);
-            }                
+                gameMap->tileMap[i][j] = ' ';
+            }
             if (gameMap->tileMap[i][j] == 'E') {
                 int positionX = j * 32;
                 int positionY = i * 32 + 2;
                 this->enemies->addEnemy(enemyTexture, positionX, positionY);
+                gameMap->tileMap[i][j] = ' ';
             }                
         }
 }
@@ -76,7 +109,7 @@ void FirstLevelState::handleInput()
 }
 
 void FirstLevelState::update(float dt)
-{
+{    
     // update player position
     player->update(gameMap, dt, enemies);
 
@@ -92,28 +125,50 @@ void FirstLevelState::update(float dt)
 }
 
 void FirstLevelState::draw(float dt)
-{
-    RectangleShape rectangle({ 32,32 });
+{   
+    Sprite sprite;
     stateData->window.clear(sf::Color(160, 82, 45, 1));
 
     for (int i = 0; i < gameMap->h; i++)
         for (int j = 0; j < gameMap->w; j++)
-        {            
-            if (gameMap->tileMap[i][j] == 'B')
-                rectangle.setFillColor(Color::Black);
+        {         
+            switch (gameMap->tileMap[i][j])
+            {
+            case ' ':
+                sprite = spriteVector->at(0);
+                break;
+            case 'Q': 
+                sprite = spriteVector->at(1);
+                break;            
+            case 'W': 
+                sprite = spriteVector->at(2);
+                break;
+            case 'R':
+                sprite = spriteVector->at(3);
+                break;
+            case 'T':
+                sprite = spriteVector->at(4);
+                break;
+            case 'Y':
+                sprite = spriteVector->at(5);
+                break;
+            case 'U':
+                sprite = spriteVector->at(6);
+                break;
+            case 'I':
+                sprite = spriteVector->at(7);
+                break;
+            case 'O':
+                sprite = spriteVector->at(8);
+                break;           
 
-            else if (gameMap->tileMap[i][j] == '0')
-                rectangle.setFillColor(Color::Green);            
-
-            else {
+            default:
                 continue;
             }
-                
-               /* if (gameMap->tileMap[i][j] == ' ' || gameMap->tileMap[i][j] == 'P' )
-                continue;*/
 
-            rectangle.setPosition(j * 32 - gameMap->offsetX, i * 32 - gameMap->offsetY);
-            stateData->window.draw(rectangle);
+            sprite.setPosition(j * 32 - gameMap->offsetX, i * 32 - gameMap->offsetY);
+            
+            stateData->window.draw(sprite);
         }  
 
     for (int i = 0; i < this->enemies->enemyList.size(); i++) {

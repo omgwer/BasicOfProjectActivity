@@ -17,6 +17,11 @@ void Enemy::update(GameMap* gameMap, float dt) {
 		dx = -1;
 	}
 
+	if (dt > 0.05f) {
+		dt = 0.05f;
+	}
+	
+
 	rect.left += dx * dt * speed;
 	collision(gameMap, 0);
 	if (!onGround)
@@ -46,7 +51,7 @@ void Enemy::collision(GameMap* gameMap, int axis)
 			i = gameMap->h;
 		}
 		for (int j = rect.left / 32; j < (rect.left + rect.width) / 32; j++) {
-			if (gameMap->tileMap[i][j] == 'B') {
+			if (gameMap->isAvailableTextureChar(gameMap->tileMap[i][j])) {
 				if (dx > 0 && axis == 0) {
 					rect.left = j * 32 - rect.width;
 					moveDirection = left;

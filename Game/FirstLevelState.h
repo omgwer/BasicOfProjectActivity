@@ -16,7 +16,16 @@ public:
 private:
 	sf::Texture playerTexture;
 	sf::Texture enemyTexture;
+
+	sf::Texture terraintTexture;
+	sf::Sprite terrainSprite;
+
+	sf::Texture backgroundTexture;
+	sf::Sprite backgroundSprite;
+
 	GameDataRef stateData;
+
+	std::vector<sf::Sprite>* spriteVector = new std::vector<sf::Sprite>;
 
 	Enemies* enemies = nullptr;
 	Player* player = nullptr;

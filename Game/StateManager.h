@@ -23,6 +23,7 @@ private:
 	std::stack<StateRef> _states;
 	StateRef _newState;
 
+	bool _isLoading;
 	bool _isRemoving; //  можно обернуть в enum
 	bool _isAdding;
 	bool _isReplacing;		

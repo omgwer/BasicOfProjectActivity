@@ -147,13 +147,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="D:\WorkDirectory\Background.png">
-      <Filter>Resource Files\Images</Filter>
-    </Image>
     <Image Include="D:\WorkDirectory\Enemies.png">
       <Filter>Resource Files\Images</Filter>
     </Image>
     <Image Include="D:\WorkDirectory\Player.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="Data\Picture\Background.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="Data\Picture\Terrain.png">
       <Filter>Resource Files\Images</Filter>
     </Image>
   </ItemGroup>

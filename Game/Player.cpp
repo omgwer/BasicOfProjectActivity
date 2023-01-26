@@ -15,6 +15,10 @@ Player::Player(sf::Texture& image, int x, int y) : Person(speed, animationSpeed)
 
 void Player::update(GameMap* gameMap, float dt, Enemies* enemies)
 {	
+	if (dt > 0.05f) {
+		dt = 0.05f;
+	}
+
 	if (isAttack) {
 		collisionEnemies(gameMap, enemies);
 		currentFrame += dt * animationSpeed;
@@ -28,18 +32,18 @@ void Player::update(GameMap* gameMap, float dt, Enemies* enemies)
 		if (moveDirection == left) {
 			sprite.setTextureRect(sf::IntRect(32 * int(currentFrame) + 32, 8 * 32, -32, 32));
 		}
-		
 		return;
 	}	
 
 	collisionEnemies(gameMap, enemies);
 
 	rect.left += dx * dt * speed;
-	collision(gameMap, 0);	
-	if (!onGround) 
+	collision(gameMap, 0);
+	if (!onGround)
 		dy = dy + dt * gravityPower;
 	rect.top += dy * dt * speed;
 	collision(gameMap, 1);
+	
 		
 	if (onGround == true) { 
 		currentFrame += dt * animationSpeed;
@@ -78,8 +82,8 @@ void Player::collision(GameMap* gameMap, int axis) {
 		if (test > gameMap->h) {
 			i = gameMap->h;
 		}
-		for (int j = rect.left / 32; j < (rect.left + rect.width) / 32; j++) {			
-			if (gameMap->tileMap[i][j] == 'B') {
+		for (int j = rect.left / 32; j < (rect.left + rect.width) / 32; j++) {		
+			if (gameMap->isAvailableTextureChar(gameMap->tileMap[i][j])) {
 				if (dx > 0 && axis == 0) {
 					rect.left = j * 32 - rect.width;
 				}
@@ -100,7 +104,7 @@ void Player::collision(GameMap* gameMap, int axis) {
 					}
 				}
 			}
-			if (gameMap->tileMap[i][j] == '0') {
+			if (gameMap->tileMap[i][j] == 'B') {
 				{
 					gameMap->tileMap[i][j] = ' ';
 				}

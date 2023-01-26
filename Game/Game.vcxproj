@@ -169,9 +169,10 @@
     <ClInclude Include="StateManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="D:\WorkDirectory\Background.png" />
     <Image Include="D:\WorkDirectory\Enemies.png" />
     <Image Include="D:\WorkDirectory\Player.png" />
+    <Image Include="Data\Picture\Background.png" />
+    <Image Include="Data\Picture\Terrain.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,6 +5,16 @@ GameMap::GameMap(Level level)
     setLevel(level);
 }
 
+bool GameMap::isAvailableTextureChar(char expectedChar)
+{
+    for (int i = 0; i < 8; i++) {
+        if (expectedChar == availableTextureChar[i]) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void GameMap::setLevel(Level level) {
     switch (level)
     {
@@ -24,20 +34,20 @@ void GameMap::setLevel(Level level) {
 
 void GameMap::setFirstLevel() {
     tileMap = {
-      "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-      "B                                      B     ",
-      "B                                0     B     ",
-      "B                                B    0B     ",
-      "B                                B    BB     ",
-      "B                                B0    B     ",
-      "B                                BB    B     ",
-      "BBB       0000              B   BB    0B     ",
-      "B   P               B E   BB     B    BB     ",
-      "B   B               BBBBBBB    BBB0    B     ",
-      "B              BB                BB    B     ",
-      "B    B         BB                      B     ",
-      "B         B  E    B       E         B         ",
-      "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+      "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ",
+      "Q                                      Q     ",
+      "Q                                B     Q     ",
+      "Q                                Q    BQ     ",
+      "Q                                Q    QQ     ",
+      "Q                                QB    Q     ",
+      "Q  P                             QQ    Q     ",
+      "QQQQQ     BBBB              Q   QQ    BQ     ",
+      "Q                   Q     QQ     Q    QQ     ",
+      "Q   Q               QQQQQQQ    QQQB    Q     ",
+      "Q              QQ                QQ    Q     ",
+      "Q    Q         QQ                      Q     ",
+      "Q         Q   E   Q                 Q        ",
+      "QQQQQQQWQWRTYUIOQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
     };
 
     offsetX = 0;
@@ -45,3 +55,5 @@ void GameMap::setFirstLevel() {
     h = tileMap.size();
     w = tileMap[0].getSize();
 }
+
+

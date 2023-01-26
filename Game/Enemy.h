@@ -3,7 +3,6 @@
 #include "GameMap.h"
 #include "Person.h"
 
-
 class Enemy : public Person
 {
 public:
