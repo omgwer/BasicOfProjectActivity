@@ -1,7 +1,12 @@
 #pragma once
 
+<<<<<<< HEAD
 //static int GAME_WIDTH = 1440;
 //static int GAME_HEIGHT = 960;
+=======
+//static int GAME_WIDTH = 600;
+//static int GAME_HEIGHT = 448;
+>>>>>>> 564435a099361e1e4c80caa0dd7f56ce512e1787
 static int GAME_WIDTH = 800;
 static int GAME_HEIGHT = 600;
 static std::string GAME_NAME = "Chip ghost adventure";

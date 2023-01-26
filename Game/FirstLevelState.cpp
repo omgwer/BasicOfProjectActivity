@@ -115,13 +115,12 @@ void FirstLevelState::update(float dt)
 
     //
     enemies->update(gameMap, dt);
-       
 
     // сдвиг карты за игроком
-    if (player->rect.left > (600 / 2))
-        gameMap->offsetX = player->rect.left - 600 / 2;
-    if (player->rect.top > (448 / 2))
-        gameMap->offsetY = player->rect.top - 448 / 2;
+    if (player->rect.left > (GAME_WIDTH / 2))
+        gameMap->offsetX = player->rect.left - GAME_WIDTH / 2;
+    if (player->rect.top > (GAME_HEIGHT / 2))
+        gameMap->offsetY = player->rect.top - GAME_HEIGHT / 2;
 }
 
 void FirstLevelState::draw(float dt)

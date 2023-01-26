@@ -22,6 +22,10 @@ void Player::update(GameMap* gameMap, float dt, Enemies* enemies)
 	if (isAttack) {
 		collisionEnemies(gameMap, enemies);
 		currentFrame += dt * animationSpeed;
+		if (isAttackFramesZero) {
+			isAttackFramesZero = false;
+			currentFrame = 0;
+		}
 		if (currentFrame > 8) {
 			currentFrame = 0;
 			isAttack = false;
@@ -177,6 +181,7 @@ void Player::setPlayerState(PlayerState playerState)
 	case ATTACK:	
 		if (isAttack == false) {
 			isAttack = true;
+			isAttackFramesZero = true;
 		}			
 		break;
 	default:
