@@ -13,7 +13,7 @@ Player::Player(sf::Texture& image, int x, int y) : Person(speed, animationSpeed)
 	rect = sf::FloatRect(x, y, 32, 32);
 }
 
-void Player::update(GameMap* gameMap, float dt, Enemies* enemies)
+void Player::update(GameMap* gameMap, float dt, Enemies* enemies, Bonuses* bonuses)
 {	
 	if (dt > 0.05f) {
 		dt = 0.05f;
@@ -40,6 +40,7 @@ void Player::update(GameMap* gameMap, float dt, Enemies* enemies)
 	}	
 
 	collisionEnemies(gameMap, enemies);
+	collisionBonuses(gameMap, bonuses);
 
 	rect.left += dx * dt * speed;
 	collision(gameMap, 0);
@@ -81,6 +82,18 @@ void Player::update(GameMap* gameMap, float dt, Enemies* enemies)
 void Player::collision(GameMap* gameMap, int axis) {
 	// collision with game map or bonuses
 	onGround = false;
+
+	float enemyYPositionBase = rect.top;
+	float enemyXPositionBase = rect.left;
+
+	int limit = 50;
+	if (rect.left + limit < enemyXPositionBase || rect.left - limit > enemyXPositionBase) {
+		return;
+	}
+	if (rect.top + limit < enemyYPositionBase || rect.top - limit > enemyYPositionBase) {
+		return;
+	}
+
 	for (int i = rect.top / 32; i < (rect.top + rect.height) / 32; i++) {
 		int test = rect.top / 32;
 		if (test > gameMap->h) {
@@ -107,12 +120,7 @@ void Player::collision(GameMap* gameMap, int axis) {
 						dy = 0;
 					}
 				}
-			}
-			if (gameMap->tileMap[i][j] == 'B') {
-				{
-					gameMap->tileMap[i][j] = ' ';
-				}
-			}
+			}			
 		}
 	}
 }
@@ -123,6 +131,14 @@ void Player::collisionEnemies(GameMap* gameMap, Enemies* enemies) {
 	for (int i = 0; i < enemies->enemyList.size(); i++) {
 		float enemyYPositionBase = enemies->enemyList.at(i).rect.top;
 		float enemyXPositionBase = enemies->enemyList.at(i).rect.left;
+
+		int limit = 50;
+		if (rect.left + limit < enemyXPositionBase || rect.left - limit > enemyXPositionBase) {
+			return;
+		}
+		if (rect.top + limit < enemyYPositionBase || rect.top - limit > enemyYPositionBase) {
+			return;
+		}
 
 		int testWidth = 20;
 		for (int y = rect.top; y < (rect.top + rect.height); y++) {
@@ -151,6 +167,57 @@ void Player::collisionEnemies(GameMap* gameMap, Enemies* enemies) {
 		}
 	}
 
+}
+
+void Player::collisionBonuses(GameMap* gameMap, Bonuses* bonuses) {
+	for (int i = 0; i < bonuses->bonusesList.size(); i++) {
+
+		float enemyYPositionBase = bonuses->bonusesList.at(i).rect.top;
+		float enemyXPositionBase = bonuses->bonusesList.at(i).rect.left;
+
+		int limit = 50;
+
+		bool needReturn = true;
+		if (rect.left + limit > enemyXPositionBase && rect.left < enemyXPositionBase) {
+			needReturn = false;
+		}
+
+		if (rect.left - limit < enemyXPositionBase && rect.left > enemyXPositionBase) {
+			needReturn = false;
+		}
+				
+		if (rect.top + limit > enemyYPositionBase && rect.top < enemyYPositionBase) {
+			needReturn = false;
+		}
+
+		if (rect.top - limit < enemyYPositionBase && rect.top > enemyYPositionBase) {
+			needReturn = false;
+		}
+
+		if (needReturn) {
+			return;
+		}
+
+		int testWidth = 32;
+		for (int y = rect.top; y < (rect.top + rect.height); y++) {
+			for (int x = rect.left; x < (rect.left + testWidth); x++) {
+				for (int eY = enemyYPositionBase; eY < (enemyYPositionBase + rect.height); eY++) {
+					for (int eX = enemyXPositionBase; eX < (enemyXPositionBase + testWidth); eX++) {
+						if (x == eX && y == eY) {							
+							std::vector<Bonus>::iterator nth = bonuses->bonusesList.begin() + i;
+							bonuses->bonusesList.erase(nth);
+							return;
+							
+							if (gamePointsCount >= 1000) {
+								lifeCount++;
+								gamePointsCount -= 1000;
+							}							
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 void Player::setPlayerState(PlayerState playerState)

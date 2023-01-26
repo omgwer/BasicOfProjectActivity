@@ -5,7 +5,7 @@
 class Bonus
 {
 public:
-	Bonus(sf::Sprite&, int, int y);
+	Bonus(sf::Sprite&, int, int y, int);
 		
 	sf::FloatRect rect;
 	sf::Sprite sprite;
@@ -15,6 +15,7 @@ public:
 private:
 	float currentFrame;
 	int animationSpeed = 23;
+	int bonusIncrementor;
 
 };
 

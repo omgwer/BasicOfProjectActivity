@@ -8,6 +8,6 @@ public:
 	Bonuses();
 
 	std::vector<Bonus> bonusesList;
-	void addBonus(sf::Sprite& , int, int);
+	void addBonus(sf::Sprite& , int, int, int);
 	void update(GameMap*, float);
 };

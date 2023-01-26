@@ -3,6 +3,7 @@
 #include "GameMap.h"
 #include "Person.h"
 #include "Enemies.h"
+#include "Bonuses.h"
 
 enum PlayerState {
 	LEFT,
@@ -23,17 +24,20 @@ public:
 
 	Player(sf::Texture&, int, int);
 
-	void update(GameMap*, float, Enemies*);
+	void update(GameMap*, float, Enemies*, Bonuses*);
 
 	void collision(GameMap*, int);
 
 	void collisionEnemies(GameMap*, Enemies*);
+
+	void collisionBonuses(GameMap*, Bonuses*);
 
 	void setPlayerState(PlayerState);
 private:	
 	const int jumpPower = 2;
 	const int gravityPower = 5;
 	int lifeCount = 3;
+	int gamePointsCount = 0;
 	bool isAttack;
 	bool isAttackFramesZero = false;
 };

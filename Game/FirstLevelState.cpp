@@ -86,19 +86,19 @@ void FirstLevelState::init()
             if (gameMap->tileMap[i][j] == 'Z') {
                 int positionX = j * 32;
                 int positionY = i * 32;
-                this->bonuses->addBonus(bonusesVector->at(0), positionX, positionY);
+                this->bonuses->addBonus(bonusesVector->at(0), positionX, positionY, 10);
                 gameMap->tileMap[i][j] = ' ';                
             }
             if (gameMap->tileMap[i][j] == 'X') {
                 int positionX = j * 32;
                 int positionY = i * 32;
-                this->bonuses->addBonus(bonusesVector->at(0), positionX, positionY);
+                this->bonuses->addBonus(bonusesVector->at(0), positionX, positionY, 15);
                 gameMap->tileMap[i][j] = ' ';
             }
             if (gameMap->tileMap[i][j] == 'C') {
                 int positionX = j * 32;
                 int positionY = i * 32;
-                this->bonuses->addBonus(bonusesVector->at(0), positionX, positionY);
+                this->bonuses->addBonus(bonusesVector->at(0), positionX, positionY, 20);
                 gameMap->tileMap[i][j] = ' ';
             }
         }
@@ -143,7 +143,7 @@ void FirstLevelState::handleInput()
 void FirstLevelState::update(float dt)
 {    
     // update player position
-    player->update(gameMap, dt, enemies);
+    player->update(gameMap, dt, enemies, bonuses);
 
     //
     enemies->update(gameMap, dt);

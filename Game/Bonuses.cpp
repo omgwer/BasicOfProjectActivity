@@ -4,9 +4,9 @@ Bonuses::Bonuses()
 {
 }
 
-void Bonuses::addBonus(sf::Sprite& enemySprite, int x, int y)
+void Bonuses::addBonus(sf::Sprite& enemySprite, int x, int y, int bonusIncrementor)
 {
-	Bonus* enemy = new Bonus(enemySprite, x, y);
+	Bonus* enemy = new Bonus(enemySprite, x, y, bonusIncrementor);
 	this->bonusesList.push_back(*enemy);
 }
 
