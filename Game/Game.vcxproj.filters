@@ -22,9 +22,6 @@
     <Filter Include="Source Files\Core\Persons">
       <UniqueIdentifier>{0c03da90-3000-4bee-a325-de2d7c328e7d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Helpers">
-      <UniqueIdentifier>{29127f45-dcca-42c0-a11c-5794451deb97}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Core\States">
       <UniqueIdentifier>{e1ad8516-418d-4759-856a-fff01befb0d0}</UniqueIdentifier>
     </Filter>
@@ -42,6 +39,12 @@
     </Filter>
     <Filter Include="Source Files\Core\Maps">
       <UniqueIdentifier>{a4c8121a-2d62-4d83-8c14-a11299e26ac7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bonuses">
+      <UniqueIdentifier>{370ff12c-2003-45e8-bfee-0409b25d53ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Bonuses">
+      <UniqueIdentifier>{8fdc7a96-79ed-47ac-a51c-1db04a8d71cb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +77,12 @@
     </ClCompile>
     <ClCompile Include="Enemies.cpp">
       <Filter>Source Files\Core\Persons</Filter>
+    </ClCompile>
+    <ClCompile Include="Bonuses.cpp">
+      <Filter>Source Files\Bonuses</Filter>
+    </ClCompile>
+    <ClCompile Include="Bonus.cpp">
+      <Filter>Source Files\Bonuses</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +153,12 @@
     </ClInclude>
     <ClInclude Include="Enemies.h">
       <Filter>Header Files\Core\Persons</Filter>
+    </ClInclude>
+    <ClInclude Include="Bonuses.h">
+      <Filter>Header Files\Bonuses</Filter>
+    </ClInclude>
+    <ClInclude Include="Bonus.h">
+      <Filter>Header Files\Bonuses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

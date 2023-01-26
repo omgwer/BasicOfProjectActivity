@@ -131,6 +131,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bonus.cpp" />
+    <ClCompile Include="Bonuses.cpp" />
     <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FirstLevelState.cpp" />
@@ -156,6 +158,8 @@
     <None Include="sfml-window-d-2.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bonus.h" />
+    <ClInclude Include="Bonuses.h" />
     <ClInclude Include="Defenitions.h" />
     <ClInclude Include="Enemies.h" />
     <ClInclude Include="Enemy.h" />

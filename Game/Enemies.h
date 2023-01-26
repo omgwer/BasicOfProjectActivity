@@ -10,8 +10,6 @@ public:
 	std::vector<Enemy> enemyList;
 	void update(GameMap* , float);
 	void addEnemy(sf::Texture&, int, int);
-private:
-
 };
 
 

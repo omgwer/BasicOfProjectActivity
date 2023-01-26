@@ -3,6 +3,7 @@
 #include "State.h"
 #include "Player.h"
 #include "Enemies.h"
+#include "Bonuses.h"
 
 class FirstLevelState : public State {
 public:
@@ -23,10 +24,16 @@ private:
 	sf::Texture backgroundTexture;
 	sf::Sprite backgroundSprite;
 
+	sf::Texture bonusTexture;
+	sf::Sprite bonusSprite;
+
 	GameDataRef stateData;
 
 	std::vector<sf::Sprite>* spriteVector = new std::vector<sf::Sprite>;
 
+	std::vector<sf::Sprite>* bonusesVector = new std::vector<sf::Sprite>;
+	
+	Bonuses* bonuses = nullptr;
 	Enemies* enemies = nullptr;
 	Player* player = nullptr;
 	GameMap* gameMap = nullptr;

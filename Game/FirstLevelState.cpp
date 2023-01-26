@@ -39,6 +39,16 @@ FirstLevelState::FirstLevelState(GameDataRef data) : stateData(data)
 
     terrainSprite.setTextureRect(sf::IntRect(288, 144, 32, 32));
     spriteVector->push_back(terrainSprite);
+
+    //bonuses
+    bonusTexture.loadFromFile(APPLE_SPRITE_SET_PATH);
+    bonusSprite.setTexture(bonusTexture);
+
+    bonusSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+    bonusesVector->push_back(bonusSprite);
+
+   /* bonusTexture.loadFromFile(BANANAS_SPRITE_SET_PATH);
+    bonusTexture.loadFromFile(KIWI_SPRITE_SET_PATH);*/
 }
 
 FirstLevelState::~FirstLevelState()
@@ -50,7 +60,11 @@ void FirstLevelState::init()
     int playerPositionX = 50;
     int playerPositionY = 50;
     playerTexture.loadFromFile(PLAYER_SPRITE_SET_PATH);
-    enemyTexture.loadFromFile(ENEMY_SPRITE_SET_PATH);
+    enemyTexture.loadFromFile(ENEMY_SPRITE_SET_PATH);   
+
+    bonusTexture.loadFromFile(APPLE_SPRITE_SET_PATH);  
+
+    this->bonuses = new Bonuses();
     this->enemies = new Enemies();
     this->gameMap = new GameMap(FIRST_LEVEL);
 
@@ -68,7 +82,25 @@ void FirstLevelState::init()
                 int positionY = i * 32 + 2;
                 this->enemies->addEnemy(enemyTexture, positionX, positionY);
                 gameMap->tileMap[i][j] = ' ';
-            }                
+            }   
+            if (gameMap->tileMap[i][j] == 'Z') {
+                int positionX = j * 32;
+                int positionY = i * 32;
+                this->bonuses->addBonus(bonusesVector->at(0), positionX, positionY);
+                gameMap->tileMap[i][j] = ' ';                
+            }
+            if (gameMap->tileMap[i][j] == 'X') {
+                int positionX = j * 32;
+                int positionY = i * 32;
+                this->bonuses->addBonus(bonusesVector->at(0), positionX, positionY);
+                gameMap->tileMap[i][j] = ' ';
+            }
+            if (gameMap->tileMap[i][j] == 'C') {
+                int positionX = j * 32;
+                int positionY = i * 32;
+                this->bonuses->addBonus(bonusesVector->at(0), positionX, positionY);
+                gameMap->tileMap[i][j] = ' ';
+            }
         }
 }
 
@@ -115,6 +147,8 @@ void FirstLevelState::update(float dt)
 
     //
     enemies->update(gameMap, dt);
+
+    bonuses->update(gameMap, dt);
 
     // сдвиг карты за игроком
     if (player->rect.left > (GAME_WIDTH / 2))
@@ -171,9 +205,15 @@ void FirstLevelState::draw(float dt)
         }  
 
     for (int i = 0; i < this->enemies->enemyList.size(); i++) {
-        Enemy test = enemies->enemyList[i];
-        stateData->window.draw(test.sprite);
+        Enemy enemy = enemies->enemyList[i];
+        stateData->window.draw(enemy.sprite);
     }
+
+    for (int i = 0; i < this->bonuses->bonusesList.size(); i++) {
+        Bonus bonus = bonuses->bonusesList[i];
+        stateData->window.draw(bonus.sprite);
+    }
+
     stateData->window.draw(player->sprite);
     stateData->window.display();    
 }
