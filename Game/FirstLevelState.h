@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Enemies.h"
 #include "Bonuses.h"
+#include <SFML/Audio.hpp>
 
 class FirstLevelState : public State {
 public:
@@ -32,7 +33,9 @@ private:
 	std::vector<sf::Sprite>* spriteVector = new std::vector<sf::Sprite>;
 
 	std::vector<sf::Sprite>* bonusesVector = new std::vector<sf::Sprite>;
-	
+
+	sf::Music backgroundMusic;
+
 	Bonuses* bonuses = nullptr;
 	Enemies* enemies = nullptr;
 	Player* player = nullptr;

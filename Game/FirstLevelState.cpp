@@ -67,6 +67,12 @@ void FirstLevelState::init()
     this->bonuses = new Bonuses();
     this->enemies = new Enemies();
     this->gameMap = new GameMap(FIRST_LEVEL);
+      
+   
+    backgroundMusic.openFromFile(FISRT_LEVEL_SOUND);
+    backgroundMusic.setVolume(25);
+    backgroundMusic.play();
+
 
     // инициализация позиций врагов и игрока
     for (int i = 0; i < gameMap->h; i++)

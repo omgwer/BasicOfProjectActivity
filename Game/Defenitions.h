@@ -15,3 +15,15 @@ static std::string TERRAIN_SPRITE_SET_PATH = "./data/Picture/Terrain.png";
 static std::string APPLE_SPRITE_SET_PATH = "./data/Picture/Bonus/Apple.png";
 static std::string BANANAS_SPRITE_SET_PATH = "./data/Picture/Bonus/Bananas.png";
 static std::string KIWI_SPRITE_SET_PATH = "./data/Picture/Bonus/Kiwi.png";
+
+
+//sounds
+static std::string FISRT_LEVEL_SOUND = "./data/Sound/LevelSound.wav";
+static std::string MAIN_MENU_SOUND = "./data/Sound/MainMenuSound.wav";
+
+static std::string PLAYER_ATTACK_SOUND = "./data/Sound/PlayerAttack.wav";
+
+static std::string PLAYER_JUMP_SOUND = "./data/Sound/PlayerAttack.wav";
+static std::string ADD_POINT_SOUND = "./data/Sound/MainMenuSound.wav";
+
+

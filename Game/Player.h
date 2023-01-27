@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "GameMap.h"
 #include "Person.h"
 #include "Enemies.h"
@@ -40,4 +41,10 @@ private:
 	int gamePointsCount = 0;
 	bool isAttack;
 	bool isAttackFramesZero = false;
+
+	sf::Music attackSound;
+	sf::Music jumpSound;
+
+	bool needCollisionToObject(float, float, float, float);
+
 };

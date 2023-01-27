@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Person.h"
 #include <SFML/Graphics.hpp>
+#include "Defenitions.h"
 
 Player::Player(sf::Texture& image, int x, int y) : Person(speed, animationSpeed) {
 	isReadyForJump = false;
@@ -11,6 +12,8 @@ Player::Player(sf::Texture& image, int x, int y) : Person(speed, animationSpeed)
 	sprite.setTexture(image);
 	sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 	rect = sf::FloatRect(x, y, 32, 32);
+
+	attackSound.openFromFile(PLAYER_ATTACK_SOUND);
 }
 
 void Player::update(GameMap* gameMap, float dt, Enemies* enemies, Bonuses* bonuses)
@@ -20,6 +23,7 @@ void Player::update(GameMap* gameMap, float dt, Enemies* enemies, Bonuses* bonus
 	}
 
 	if (isAttack) {
+		attackSound.play();
 		collisionEnemies(gameMap, enemies);
 		currentFrame += dt * animationSpeed;
 		if (isAttackFramesZero) {
@@ -83,17 +87,6 @@ void Player::collision(GameMap* gameMap, int axis) {
 	// collision with game map or bonuses
 	onGround = false;
 
-	float enemyYPositionBase = rect.top;
-	float enemyXPositionBase = rect.left;
-
-	int limit = 50;
-	if (rect.left + limit < enemyXPositionBase || rect.left - limit > enemyXPositionBase) {
-		return;
-	}
-	if (rect.top + limit < enemyYPositionBase || rect.top - limit > enemyYPositionBase) {
-		return;
-	}
-
 	for (int i = rect.top / 32; i < (rect.top + rect.height) / 32; i++) {
 		int test = rect.top / 32;
 		if (test > gameMap->h) {
@@ -132,12 +125,8 @@ void Player::collisionEnemies(GameMap* gameMap, Enemies* enemies) {
 		float enemyYPositionBase = enemies->enemyList.at(i).rect.top;
 		float enemyXPositionBase = enemies->enemyList.at(i).rect.left;
 
-		int limit = 50;
-		if (rect.left + limit < enemyXPositionBase || rect.left - limit > enemyXPositionBase) {
-			return;
-		}
-		if (rect.top + limit < enemyYPositionBase || rect.top - limit > enemyYPositionBase) {
-			return;
+		if (!needCollisionToObject(rect.left, rect.top, enemyXPositionBase, enemyYPositionBase)) {
+			continue;
 		}
 
 		int testWidth = 20;
@@ -171,31 +160,13 @@ void Player::collisionEnemies(GameMap* gameMap, Enemies* enemies) {
 
 void Player::collisionBonuses(GameMap* gameMap, Bonuses* bonuses) {
 	for (int i = 0; i < bonuses->bonusesList.size(); i++) {
-
-		float enemyYPositionBase = bonuses->bonusesList.at(i).rect.top;
+		
 		float enemyXPositionBase = bonuses->bonusesList.at(i).rect.left;
+		float enemyYPositionBase = bonuses->bonusesList.at(i).rect.top;
 
-		int limit = 50;
 
-		bool needReturn = true;
-		if (rect.left + limit > enemyXPositionBase && rect.left < enemyXPositionBase) {
-			needReturn = false;
-		}
-
-		if (rect.left - limit < enemyXPositionBase && rect.left > enemyXPositionBase) {
-			needReturn = false;
-		}
-				
-		if (rect.top + limit > enemyYPositionBase && rect.top < enemyYPositionBase) {
-			needReturn = false;
-		}
-
-		if (rect.top - limit < enemyYPositionBase && rect.top > enemyYPositionBase) {
-			needReturn = false;
-		}
-
-		if (needReturn) {
-			return;
+		if ( !needCollisionToObject(rect.left, rect.top, enemyXPositionBase, enemyYPositionBase )) {
+			continue;
 		}
 
 		int testWidth = 32;
@@ -254,4 +225,27 @@ void Player::setPlayerState(PlayerState playerState)
 	default:
 		break;
 	}
+}
+
+
+bool Player::needCollisionToObject(float playerX, float playerY, float objectX, float objectY) {
+	int limit = 50;
+	bool needCollision = false;
+
+	float playerPositionX = playerX;
+	float playerPositionY = playerY;
+
+	float playerPositioXLimitRight = playerPositionX + limit;
+	float playerPositioXLimitLeft = playerPositionX - limit;
+
+	float playerPositionYLimitTop = playerPositionY + limit;
+	float playerPositionYLimitBot = playerPositionY - limit;
+
+	if (playerPositioXLimitRight > objectX && playerPositioXLimitLeft < objectX) {
+		if (playerPositionYLimitTop > objectY && playerPositionYLimitBot < objectY) {
+			needCollision = true;
+		}
+	}
+
+	return needCollision;
 }
