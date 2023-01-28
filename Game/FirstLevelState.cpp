@@ -72,6 +72,7 @@ void FirstLevelState::init()
     backgroundMusic.openFromFile(FISRT_LEVEL_SOUND);
     backgroundMusic.setVolume(25);
     backgroundMusic.play();
+    backgroundMusic.setLoop(true);
 
 
     // инициализация позиций врагов и игрока
@@ -92,19 +93,19 @@ void FirstLevelState::init()
             if (gameMap->tileMap[i][j] == 'Z') {
                 int positionX = j * 32;
                 int positionY = i * 32;
-                this->bonuses->addBonus(bonusesVector->at(0), positionX, positionY, 10);
+                this->bonuses->addBonus(bonusesVector->at(0), positionX, positionY, 25);
                 gameMap->tileMap[i][j] = ' ';                
             }
             if (gameMap->tileMap[i][j] == 'X') {
                 int positionX = j * 32;
                 int positionY = i * 32;
-                this->bonuses->addBonus(bonusesVector->at(0), positionX, positionY, 15);
+                this->bonuses->addBonus(bonusesVector->at(0), positionX, positionY, 35);
                 gameMap->tileMap[i][j] = ' ';
             }
             if (gameMap->tileMap[i][j] == 'C') {
                 int positionX = j * 32;
                 int positionY = i * 32;
-                this->bonuses->addBonus(bonusesVector->at(0), positionX, positionY, 20);
+                this->bonuses->addBonus(bonusesVector->at(0), positionX, positionY, 50);
                 gameMap->tileMap[i][j] = ' ';
             }
         }

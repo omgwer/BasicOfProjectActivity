@@ -22,8 +22,9 @@ static std::string FISRT_LEVEL_SOUND = "./data/Sound/LevelSound.wav";
 static std::string MAIN_MENU_SOUND = "./data/Sound/MainMenuSound.wav";
 
 static std::string PLAYER_ATTACK_SOUND = "./data/Sound/PlayerAttack.wav";
+static std::string PLAYER_ATTACK_NEW_SOUND = "./data/Sound/PlayerAttackNew.wav";
 
-static std::string PLAYER_JUMP_SOUND = "./data/Sound/PlayerAttack.wav";
-static std::string ADD_POINT_SOUND = "./data/Sound/MainMenuSound.wav";
+static std::string PLAYER_JUMP_SOUND = "./data/Sound/JumpSound.wav";
+static std::string ADD_POINT_SOUND = "./data/Sound/PickUpBonus.wav";
 
 

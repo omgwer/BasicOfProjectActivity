@@ -9,13 +9,13 @@ public:
 		
 	sf::FloatRect rect;
 	sf::Sprite sprite;
+	int bonusIncrementor;
 
 	void update(GameMap*, float);
 	void collision(GameMap*, int);
 private:
 	float currentFrame;
 	int animationSpeed = 23;
-	int bonusIncrementor;
 
 };
 

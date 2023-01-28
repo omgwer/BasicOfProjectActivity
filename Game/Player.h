@@ -44,6 +44,9 @@ private:
 
 	sf::Music attackSound;
 	sf::Music jumpSound;
+	sf::Music bonusSound;
+
+	void addPoints(int);
 
 	bool needCollisionToObject(float, float, float, float);
 

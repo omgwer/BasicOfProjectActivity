@@ -14,6 +14,14 @@ Player::Player(sf::Texture& image, int x, int y) : Person(speed, animationSpeed)
 	rect = sf::FloatRect(x, y, 32, 32);
 
 	attackSound.openFromFile(PLAYER_ATTACK_SOUND);
+	attackSound.setVolume(50);
+	//attackSound.openFromFile(PLAYER_ATTACK_NEW_SOUND);
+
+	jumpSound.openFromFile(PLAYER_JUMP_SOUND);
+	jumpSound.setVolume(15);
+
+	bonusSound.openFromFile(ADD_POINT_SOUND);
+	bonusSound.setVolume(50);
 }
 
 void Player::update(GameMap* gameMap, float dt, Enemies* enemies, Bonuses* bonuses)
@@ -22,8 +30,7 @@ void Player::update(GameMap* gameMap, float dt, Enemies* enemies, Bonuses* bonus
 		dt = 0.05f;
 	}
 
-	if (isAttack) {
-		attackSound.play();
+	if (isAttack) {		
 		collisionEnemies(gameMap, enemies);
 		currentFrame += dt * animationSpeed;
 		if (isAttackFramesZero) {
@@ -42,6 +49,7 @@ void Player::update(GameMap* gameMap, float dt, Enemies* enemies, Bonuses* bonus
 		}
 		return;
 	}	
+	
 
 	collisionEnemies(gameMap, enemies);
 	collisionBonuses(gameMap, bonuses);
@@ -136,7 +144,8 @@ void Player::collisionEnemies(GameMap* gameMap, Enemies* enemies) {
 					for (int eX = enemyXPositionBase; eX < (enemyXPositionBase + testWidth); eX++) {
 						if (x == eX && y == eY) {
 							
-							if (isAttack) {								
+							if (isAttack) {		
+								addPoints(50);
 								std::vector<Enemy>::iterator nth = enemies->enemyList.begin() + i;
 								enemies->enemyList.erase(nth);							
 								return;
@@ -175,14 +184,15 @@ void Player::collisionBonuses(GameMap* gameMap, Bonuses* bonuses) {
 				for (int eY = enemyYPositionBase; eY < (enemyYPositionBase + rect.height); eY++) {
 					for (int eX = enemyXPositionBase; eX < (enemyXPositionBase + testWidth); eX++) {
 						if (x == eX && y == eY) {							
+							bonusSound.setPlayingOffset(sf::Time(sf::milliseconds(0)));
+							bonusSound.play();
+
+							addPoints(bonuses->bonusesList.at(i).bonusIncrementor);
+							
 							std::vector<Bonus>::iterator nth = bonuses->bonusesList.begin() + i;
 							bonuses->bonusesList.erase(nth);
+								
 							return;
-							
-							if (gamePointsCount >= 1000) {
-								lifeCount++;
-								gamePointsCount -= 1000;
-							}							
 						}
 					}
 				}
@@ -206,6 +216,8 @@ void Player::setPlayerState(PlayerState playerState)
 			dy = -jumpPower;
 			onGround = false;
 			isReadyForJump = false;
+			jumpSound.setPlayingOffset(sf::Time(sf::milliseconds(0)));
+			jumpSound.play();
 		}
 		break;
 	case DOWN:
@@ -220,6 +232,9 @@ void Player::setPlayerState(PlayerState playerState)
 		if (isAttack == false) {
 			isAttack = true;
 			isAttackFramesZero = true;
+			//attackSound.setPlayingOffset(sf::Time(sf::milliseconds(500)));
+			attackSound.setPlayingOffset(sf::Time(sf::milliseconds(150)));
+			attackSound.play();
 		}			
 		break;
 	default:
@@ -248,4 +263,14 @@ bool Player::needCollisionToObject(float playerX, float playerY, float objectX, 
 	}
 
 	return needCollision;
+}
+
+
+void Player::addPoints(int points) {
+	gamePointsCount += points;
+
+	if (gamePointsCount >= 1000) {
+		lifeCount++;
+		gamePointsCount -= 1000;
+	}
 }
