@@ -4,7 +4,7 @@
 //static int GAME_HEIGHT = 960;
 static int GAME_WIDTH = 800;
 static int GAME_HEIGHT = 600;
-static std::string GAME_NAME = "Chip ghost adventure";
+static std::string GAME_NAME = "Epic ghost adventure";
 // player sprite path
 static std::string PLAYER_SPRITE_SET_PATH = "./data/Picture/Player.png";
 static std::string ENEMY_SPRITE_SET_PATH = "./data/Picture/Enemies.png";
@@ -26,5 +26,8 @@ static std::string PLAYER_ATTACK_NEW_SOUND = "./data/Sound/PlayerAttackNew.wav";
 
 static std::string PLAYER_JUMP_SOUND = "./data/Sound/JumpSound.wav";
 static std::string ADD_POINT_SOUND = "./data/Sound/PickUpBonus.wav";
+
+//fonts
+static std::string FONT_BLACK = "./data/Picture/FontBlack.png";
 
 

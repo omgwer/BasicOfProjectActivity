@@ -46,6 +46,12 @@
     <Filter Include="Header Files\Bonuses">
       <UniqueIdentifier>{8fdc7a96-79ed-47ac-a51c-1db04a8d71cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Core\UI">
+      <UniqueIdentifier>{fe839f41-7edc-43be-801e-f8072cdc09e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\UI">
+      <UniqueIdentifier>{e3a03405-e528-48d7-891d-8715280e2d69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -83,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="Bonus.cpp">
       <Filter>Source Files\Bonuses</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInterface.cpp">
+      <Filter>Source Files\Core\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +168,9 @@
     </ClInclude>
     <ClInclude Include="Bonus.h">
       <Filter>Header Files\Bonuses</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInterface.h">
+      <Filter>Header Files\Core\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

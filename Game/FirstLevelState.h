@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Enemies.h"
 #include "Bonuses.h"
+#include "UserInterface.h"
 #include <SFML/Audio.hpp>
 
 class FirstLevelState : public State {
@@ -36,6 +37,9 @@ private:
 
 	sf::Music backgroundMusic;
 
+	void drawUi(sf::RenderWindow&, int , int);
+
+	UserInterface* userInterface = nullptr;
 	Bonuses* bonuses = nullptr;
 	Enemies* enemies = nullptr;
 	Player* player = nullptr;

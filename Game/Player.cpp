@@ -4,7 +4,7 @@
 #include "Defenitions.h"
 
 Player::Player(sf::Texture& image, int x, int y) : Person(speed, animationSpeed) {
-	isReadyForJump = false;
+	isReadyForJump = true;
 	isAttack = false;
 	onGround = false;
 	speed = 250;
@@ -229,11 +229,11 @@ void Player::setPlayerState(PlayerState playerState)
 		}
 		break;
 	case ATTACK:	
-		if (isAttack == false) {
+		if (!isAttack) {
 			isAttack = true;
 			isAttackFramesZero = true;
 			//attackSound.setPlayingOffset(sf::Time(sf::milliseconds(500)));
-			attackSound.setPlayingOffset(sf::Time(sf::milliseconds(150)));
+			attackSound.setPlayingOffset(sf::Time(sf::milliseconds(0)));
 			attackSound.play();
 		}			
 		break;

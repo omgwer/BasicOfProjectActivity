@@ -220,7 +220,18 @@ void FirstLevelState::draw(float dt)
         Bonus bonus = bonuses->bonusesList[i];
         stateData->window.draw(bonus.sprite);
     }
+    
+   // drawUi(stateData->window, player->lifeCount, player->gamePointsCount);
 
     stateData->window.draw(player->sprite);
     stateData->window.display();    
+}
+
+void FirstLevelState::drawUi(sf::RenderWindow& window, int lifes, int points) {
+    std::vector<sf::Sprite> lifesSpriteList = userInterface->getLifesSprite(lifes);
+
+    for (int i = 0; i < lifesSpriteList.size(); i++) {
+       // window.draw(lifesSpriteList.at(i));
+    }
+
 }
