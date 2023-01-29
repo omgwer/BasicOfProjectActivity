@@ -67,6 +67,7 @@ void FirstLevelState::init()
     this->bonuses = new Bonuses();
     this->enemies = new Enemies();
     this->gameMap = new GameMap(FIRST_LEVEL);
+    this->userInterface = new UserInterface();
       
    
     backgroundMusic.openFromFile(FISRT_LEVEL_SOUND);
@@ -221,7 +222,7 @@ void FirstLevelState::draw(float dt)
         stateData->window.draw(bonus.sprite);
     }
     
-   // drawUi(stateData->window, player->lifeCount, player->gamePointsCount);
+    drawUi(stateData->window, player->lifeCount, player->gamePointsCount);
 
     stateData->window.draw(player->sprite);
     stateData->window.display();    
@@ -229,9 +230,13 @@ void FirstLevelState::draw(float dt)
 
 void FirstLevelState::drawUi(sf::RenderWindow& window, int lifes, int points) {
     std::vector<sf::Sprite> lifesSpriteList = userInterface->getLifesSprite(lifes);
+    std::vector<sf::Sprite> pointsSpriteList = userInterface->getPointsSprite(points);
 
     for (int i = 0; i < lifesSpriteList.size(); i++) {
-       // window.draw(lifesSpriteList.at(i));
+        window.draw(lifesSpriteList.at(i));
     }
 
+    for (int i = 0; i < pointsSpriteList.size(); i++) {
+        window.draw(pointsSpriteList.at(i));
+    }
 }

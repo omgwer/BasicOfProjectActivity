@@ -13,9 +13,9 @@ Player::Player(sf::Texture& image, int x, int y) : Person(speed, animationSpeed)
 	sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 	rect = sf::FloatRect(x, y, 32, 32);
 
-	attackSound.openFromFile(PLAYER_ATTACK_SOUND);
-	attackSound.setVolume(50);
-	//attackSound.openFromFile(PLAYER_ATTACK_NEW_SOUND);
+	//attackSound.openFromFile(PLAYER_ATTACK_SOUND);
+	attackSound.openFromFile(PLAYER_ATTACK_NEW_SOUND);
+	attackSound.setVolume(70);
 
 	jumpSound.openFromFile(PLAYER_JUMP_SOUND);
 	jumpSound.setVolume(15);

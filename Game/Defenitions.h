@@ -29,5 +29,10 @@ static std::string ADD_POINT_SOUND = "./data/Sound/PickUpBonus.wav";
 
 //fonts
 static std::string FONT_BLACK = "./data/Picture/FontBlack.png";
+static std::string FONT_WHITE = "./data/Picture/FontWhite.png";
+
+//life
+static std::string LIFE = "./data/Picture/Life.png";
+
 
 
