@@ -150,9 +150,7 @@ void Player::collisionEnemies(GameMap* gameMap, Enemies* enemies) {
 								enemies->enemyList.erase(nth);							
 								return;
 							}
-							if (lifeCount <= 1) {
-								throw std::exception("game over!");
-							}
+							
 							lifeCount--;
 							rect.left = defaultLeft;
 							rect.top = defaultTop;

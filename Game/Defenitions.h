@@ -4,7 +4,7 @@
 //static int GAME_HEIGHT = 960;
 static int GAME_WIDTH = 800;
 static int GAME_HEIGHT = 600;
-static std::string GAME_NAME = "Epic ghost adventure";
+static std::string GAME_NAME = "Epic adventure";
 // player sprite path
 static std::string PLAYER_SPRITE_SET_PATH = "./data/Picture/Player.png";
 static std::string ENEMY_SPRITE_SET_PATH = "./data/Picture/Enemies.png";
@@ -15,6 +15,7 @@ static std::string TERRAIN_SPRITE_SET_PATH = "./data/Picture/Terrain.png";
 static std::string APPLE_SPRITE_SET_PATH = "./data/Picture/Bonus/Apple.png";
 static std::string BANANAS_SPRITE_SET_PATH = "./data/Picture/Bonus/Bananas.png";
 static std::string KIWI_SPRITE_SET_PATH = "./data/Picture/Bonus/Kiwi.png";
+static std::string STRAWBERRY_SPRITE_SET_PATH = "./data/Picture/Bonus/Strawberry.png";
 
 
 //sounds
@@ -34,5 +35,6 @@ static std::string FONT_WHITE = "./data/Picture/FontWhite.png";
 //life
 static std::string LIFE = "./data/Picture/Life.png";
 
-
+//
+static std::string CHECKBOX = "./data/Picture/Checkbox.png";
 

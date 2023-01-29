@@ -9,8 +9,8 @@ typedef std::unique_ptr<State> StateRef;
 class StateManager
 {
 public:
-	StateManager() = default;
-	~StateManager() = default;
+	StateManager();
+	~StateManager();
 
 	void addState(StateRef newState, bool isReplacing = true);
 	void removeState();

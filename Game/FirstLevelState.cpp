@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Defenitions.h"
 #include <iostream>
+#include "GameOverState.h"
 
 using namespace sf;
 
@@ -59,15 +60,18 @@ void FirstLevelState::init()
 {   
     int playerPositionX = 50;
     int playerPositionY = 50;
-    playerTexture.loadFromFile(PLAYER_SPRITE_SET_PATH);
-    enemyTexture.loadFromFile(ENEMY_SPRITE_SET_PATH);   
-
-    bonusTexture.loadFromFile(APPLE_SPRITE_SET_PATH);  
+     
 
     this->bonuses = new Bonuses();
     this->enemies = new Enemies();
     this->gameMap = new GameMap(FIRST_LEVEL);
     this->userInterface = new UserInterface();
+
+    playerTexture.loadFromFile(PLAYER_SPRITE_SET_PATH);
+
+    bonusTexture.loadFromFile(APPLE_SPRITE_SET_PATH);
+
+    enemyTexture.loadFromFile(ENEMY_SPRITE_SET_PATH);
       
    
     backgroundMusic.openFromFile(FISRT_LEVEL_SOUND);
@@ -152,6 +156,10 @@ void FirstLevelState::update(float dt)
 {    
     // update player position
     player->update(gameMap, dt, enemies, bonuses);
+
+    if (player->lifeCount == 0) {
+        stateData->stateManager.addState(StateRef(new GameOverState(stateData, player->gamePointsCount)), false);
+    }
 
     //
     enemies->update(gameMap, dt);

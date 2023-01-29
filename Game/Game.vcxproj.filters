@@ -93,6 +93,9 @@
     <ClCompile Include="UserInterface.cpp">
       <Filter>Source Files\Core\UI</Filter>
     </ClCompile>
+    <ClCompile Include="GameOverState.cpp">
+      <Filter>Source Files\Core\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="sfml-window-d-2.dll">
@@ -171,6 +174,9 @@
     </ClInclude>
     <ClInclude Include="UserInterface.h">
       <Filter>Header Files\Core\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverState.h">
+      <Filter>Header Files\Core\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

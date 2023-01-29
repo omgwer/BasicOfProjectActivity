@@ -23,6 +23,7 @@ public:
     void setLevel(Level);
 private:
     void setFirstLevel();
+    void setMainMenuLevel();
+    void setGameOverLevel();
     char availableTextureChar[8] = { 'Q', 'W', 'R', 'T', 'Y', 'U', 'I', 'O' };
-
 };
