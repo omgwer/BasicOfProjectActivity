@@ -6,7 +6,7 @@
 class GameOverState : public State
 {
 public: 
-	GameOverState(GameDataRef data, int);
+	GameOverState(GameDataRef data, int, int);
 
 	void init();
 	void handleInput();
@@ -19,6 +19,7 @@ private:
 	UserInterface* userInterface = nullptr;
 
 	int resultPoints = 0;
+	int lifeCount;
 
 	sf::Texture terraintTexture;
 	sf::Sprite terrainSprite;

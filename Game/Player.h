@@ -40,7 +40,9 @@ public:
 private:	
 	const int jumpPower = 2;
 	const int gravityPower = 5;
-	
+	int defaultLeft = 50;
+	int defaultTop = 350;
+
 	bool isAttack;
 	bool isAttackFramesZero = false;
 

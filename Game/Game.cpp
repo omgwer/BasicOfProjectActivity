@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "FirstLevelState.h"
 #include "MainMenuState.h"
+#include "GameOverState.h"
 
 using namespace sf;
 
@@ -21,6 +22,6 @@ void Game::run() {
 
         this->data->stateManager.getActiveState()->handleInput();
         this->data->stateManager.getActiveState()->update(dt);
-        this->data->stateManager.getActiveState()->draw(dt);
+        this->data->stateManager.getActiveState()->draw(dt);       
     }
 }

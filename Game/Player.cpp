@@ -13,8 +13,8 @@ Player::Player(sf::Texture& image, int x, int y) : Person(speed, animationSpeed)
 	sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 	rect = sf::FloatRect(x, y, 32, 32);
 
-	//attackSound.openFromFile(PLAYER_ATTACK_SOUND);
-	attackSound.openFromFile(PLAYER_ATTACK_NEW_SOUND);
+	attackSound.openFromFile(PLAYER_ATTACK_SOUND);
+	//attackSound.openFromFile(PLAYER_ATTACK_NEW_SOUND);
 	attackSound.setVolume(70);
 
 	jumpSound.openFromFile(PLAYER_JUMP_SOUND);
@@ -50,17 +50,15 @@ void Player::update(GameMap* gameMap, float dt, Enemies* enemies, Bonuses* bonus
 		return;
 	}	
 	
-
-	collisionEnemies(gameMap, enemies);
-	collisionBonuses(gameMap, bonuses);
-
 	rect.left += dx * dt * speed;
 	collision(gameMap, 0);
 	if (!onGround)
 		dy = dy + dt * gravityPower;
 	rect.top += dy * dt * speed;
 	collision(gameMap, 1);
-	
+
+	collisionEnemies(gameMap, enemies);
+	collisionBonuses(gameMap, bonuses);
 		
 	if (onGround == true) { 
 		currentFrame += dt * animationSpeed;
@@ -100,7 +98,25 @@ void Player::collision(GameMap* gameMap, int axis) {
 		if (test > gameMap->h) {
 			i = gameMap->h;
 		}
-		for (int j = rect.left / 32; j < (rect.left + rect.width) / 32; j++) {		
+		for (int j = rect.left / 32; j < (rect.left + rect.width) / 32; j++) {	
+
+			try {
+				std::string test = gameMap->tileMap.at(i);
+				char test2 = test.at(j);				
+			}
+			catch (std::exception ex) {
+				lifeCount--;
+				rect.left = defaultLeft;
+				rect.top = defaultTop;
+				gameMap->offsetY = 0;
+				gameMap->offsetX = 0;
+				return;
+			}
+
+			if (gameMap->tileMap[i][j] == 'F') {
+				gamePointsCount += lifeCount * 1000;
+				lifeCount = 0;
+			}
 			if (gameMap->isAvailableTextureChar(gameMap->tileMap[i][j])) {
 				if (dx > 0 && axis == 0) {
 					rect.left = j * 32 - rect.width;
@@ -127,8 +143,6 @@ void Player::collision(GameMap* gameMap, int axis) {
 }
 
 void Player::collisionEnemies(GameMap* gameMap, Enemies* enemies) {
-	int defaultLeft = 50;
-	int defaultTop = 50;
 	for (int i = 0; i < enemies->enemyList.size(); i++) {
 		float enemyYPositionBase = enemies->enemyList.at(i).rect.top;
 		float enemyXPositionBase = enemies->enemyList.at(i).rect.left;
@@ -185,7 +199,7 @@ void Player::collisionBonuses(GameMap* gameMap, Bonuses* bonuses) {
 							bonusSound.setPlayingOffset(sf::Time(sf::milliseconds(0)));
 							bonusSound.play();
 
-							addPoints(bonuses->bonusesList.at(i).bonusIncrementor);
+							addPoints(bonuses->bonusesList.at(i).bonusIncrementor);							
 							
 							std::vector<Bonus>::iterator nth = bonuses->bonusesList.begin() + i;
 							bonuses->bonusesList.erase(nth);
@@ -265,6 +279,12 @@ bool Player::needCollisionToObject(float playerX, float playerY, float objectX, 
 
 
 void Player::addPoints(int points) {
+	if (points == 200) {
+		this->gamePointsCount += 200 + lifeCount * 1000;
+		this->lifeCount = 0;
+		return;
+	}
+
 	gamePointsCount += points;
 
 	if (gamePointsCount >= 1000) {

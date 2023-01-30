@@ -18,6 +18,9 @@ void Bonus::update(GameMap* gameMap, float dt)
 	}
 
 	currentFrame += dt * animationSpeed;
+	if (currentFrame > 7 && bonusIncrementor == 200) {
+		currentFrame = 0;
+	}
 	if (currentFrame > 16) {
 		currentFrame = 0;
 	}

@@ -29,6 +29,15 @@ private:
 	sf::Texture bonusTexture;
 	sf::Sprite bonusSprite;
 
+	sf::Texture bonusTexture1;
+	sf::Sprite bonusSprite1;
+
+	sf::Texture bonusTexture2;
+	sf::Sprite bonusSprite2;
+
+	sf::Texture finishTexture;
+	sf::Sprite finishSprite;
+
 	GameDataRef stateData;
 
 	std::vector<sf::Sprite>* spriteVector = new std::vector<sf::Sprite>;

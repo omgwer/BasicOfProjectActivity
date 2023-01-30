@@ -37,4 +37,5 @@ static std::string LIFE = "./data/Picture/Life.png";
 
 //
 static std::string CHECKBOX = "./data/Picture/Checkbox.png";
+static std::string FINISH = "./data/Picture/Finish.png";
 

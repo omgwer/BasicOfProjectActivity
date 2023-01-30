@@ -1,7 +1,7 @@
 #include "GameOverState.h"
 #include "Defenitions.h"
 
-GameOverState::GameOverState(GameDataRef data, int points) : stateData(data) {
+GameOverState::GameOverState(GameDataRef data, int points, int lifeCount) : stateData(data) {
     backgroundTexture.loadFromFile(BACKGROUND_SPRITE_SET_PATH);
     backgroundSprite.setTexture(backgroundTexture);
     backgroundSprite.setTextureRect(sf::IntRect(32, 0, 32, 32));
@@ -35,6 +35,7 @@ GameOverState::GameOverState(GameDataRef data, int points) : stateData(data) {
     spriteVector->push_back(terrainSprite);
 
     resultPoints = points;
+    this->lifeCount = lifeCount;
 }
 
 void GameOverState::init()
@@ -47,8 +48,11 @@ void GameOverState::handleInput()
 {
     sf::Event event;
     while (stateData->window.pollEvent(event))
-    {
-        if (event.type == sf::Event::KeyReleased) {
+    {        
+        if (event.type == sf::Event::Closed)
+            stateData->window.close();
+
+        if (event.key.code == sf::Keyboard::Escape) {
             stateData->window.close();
         }
     }
@@ -118,14 +122,18 @@ void GameOverState::draw(float dt)
     }
 
     std::string result;
-    result.append("YOUR RESULT IS ");
-    result.append(std::to_string(resultPoints));
+    result.append("YOUR SCORE IS ");
+    result.append(std::to_string(resultPoints + lifeCount * 1000));
     result.append(" POINTS");
 
-    std::vector<sf::Sprite> newGameButton = userInterface->getSpriteListByString(sf::Vector2f((GAME_WIDTH / 2) - 150, 250), 2, result);
-
+    std::vector<sf::Sprite> newGameButton = userInterface->getSpriteListByString(sf::Vector2f((GAME_WIDTH / 2) - 200, 280), 2, result);
     for (int i = 0; i < newGameButton.size(); i++) {
         stateData->window.draw(newGameButton.at(i));
+    }
+
+    std::vector<sf::Sprite> finishText = userInterface->getSpriteListByString(sf::Vector2f((GAME_WIDTH / 2) - 170, 315), 1.5, "PRESS ESC FOR EXIT GAME...");
+    for (int i = 0; i < finishText.size(); i++) {
+        stateData->window.draw(finishText.at(i));
     }
 
     stateData->window.display();
